@@ -14,6 +14,10 @@ def save_response (filename, response)
    end
 end
 
+def sesion_existe (name)
+  path=@outputbasepath + name
+  existe=File.exist?(path)
+end
 
 def fetch_html_from_url (url)
   response = ''
@@ -56,12 +60,16 @@ while page < upperlimit do
     rmatch=/\+Y\+(.*).CODI/  #match id, our filename
     match=link.match(rmatch)
     id = match.nil? ? nil : match[1]
+    filename="#{id}.html"
+    if (sesion_existe(filename))
+      p "*****File #{id} exists******"
+    else
+      fetch_and_save_document("http://www.congreso.es#{link}", filename)
+    end
     p id
-        
-    fetch_and_save_document("http://www.congreso.es#{link}", "#{id}.html")
   end    
   
-  page=page+1    
+  page=page+paging  
 end
 
 p "---------"
