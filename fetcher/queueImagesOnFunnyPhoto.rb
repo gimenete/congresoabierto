@@ -8,14 +8,13 @@ require 'hpricot'
 #require 'redis'
 require 'iconv'
 
-
 def img_existe (path)
   path=@outputbasepath + name
   existe=File.exist?(path)
 end
 
 def logerror (text)
-   File.open(@outputbasepath + "error.txt", 'w') do |f|
+   File.open(@outputbasepath + "error.txt", 'a') do |f|
       f.puts text
    end
 end
