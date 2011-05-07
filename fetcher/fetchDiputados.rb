@@ -2,7 +2,6 @@
 #T49
 #fetch all diputados from congress url
 
-require 'rubygems'
 require 'open-uri'
 require 'hpricot'
 require 'redis'
