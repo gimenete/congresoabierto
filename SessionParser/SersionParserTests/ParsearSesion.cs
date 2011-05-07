@@ -16,15 +16,15 @@ namespace SersionParserTests
             string rawData = "foo<br>el señor XXX: asdf<br>asdf fin<br>la señora YYY: fin2";
             SessionParser parser = new SessionParser();
 
-            IList<string> intervenciones = parser.ParsearIntervenciones(rawData);
+            IntervencionCollection intervenciones = parser.ParsearIntervenciones(rawData);
 
             Assert.AreEqual(2, intervenciones.Count);
             
-            Assert.IsTrue(intervenciones[0].StartsWith("xxx:"));
-            Assert.IsTrue(intervenciones[0].EndsWith("fin"));
+            Assert.AreEqual("xxx", intervenciones[0].NombreDiputado);
+            Assert.AreEqual("asdf<br>asdf fin", intervenciones[0].Texto);
 
-            Assert.IsTrue(intervenciones[1].StartsWith("yyy:"));
-            Assert.IsTrue(intervenciones[1].EndsWith("fin2"));
+            Assert.AreEqual("yyy", intervenciones[1].NombreDiputado);
+            Assert.AreEqual("fin2", intervenciones[1].Texto);
         }
 
 

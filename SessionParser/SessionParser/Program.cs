@@ -13,14 +13,23 @@ namespace Parser
             string rawSession = File.ReadAllText(args[0]);
             SessionParser parser = new SessionParser();
 
-            IList<string> intervenciones = parser.ParsearIntervenciones(rawSession);
+            IntervencionCollection intervenciones = parser.ParsearIntervenciones(rawSession);
 
-            foreach(string intervencion in intervenciones)
+            /*foreach(Intervencion intervencion in intervenciones)
             {
                 Console.WriteLine("#######################");
-                Console.WriteLine(intervencion);
-            }
+                Console.WriteLine("Diputado: " + intervencion.NombreDiputado);
+                Console.WriteLine(intervencion.Texto);
+            }*/
             Console.WriteLine("Total intervenciones: " + intervenciones.Count);
+            Console.WriteLine();
+
+            Dictionary<string, int> diputados = intervenciones.GetTotalIntervencionesPorDiputado();
+            foreach(string diputado in diputados.Keys)
+            {
+                Console.WriteLine(diputado + " : " + diputados[diputado]);
+            }
+
             Console.ReadKey();
         }
     }
