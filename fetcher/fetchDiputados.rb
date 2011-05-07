@@ -93,6 +93,9 @@ while iddiputado < upperlimit do
     diputadopor=sanitize(doc.search("//div[@class='texto_dip']/ul/li[1]/div[1]").inner_text)
     p diputadopor
 
+    grupobreve=doc.search("//p[@class='nombre_grupo']").inner_text
+    p grupobreve
+    
     grupo=doc.search("//div[@class='texto_dip']/ul/li[1]/div[2]/a").inner_text
     p grupo
 
