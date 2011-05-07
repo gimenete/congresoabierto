@@ -84,16 +84,27 @@ a:hover { color: #036; }
 
 .left                                   {float: left;}
 .clear 									{ clear:both; }
+.right                                  { float: right;}
+.dummyborder            { border: 1px black solid; }
+.default_margin { margin: 20px; }
+
+
 #container { width:950px; margin:0px auto; }
 
 header { height: 100px; }
 header h1 { font-size: 30px; }
-#container { border: 1px solid black;}
-#container .fighter { width: 400px;  height: auto; border: 1px black solid; margin:20px;}
-#container #vs { width: 25px; height: 400px; margin:320px 20px 20px 20px; }
+#container { border: 1px solid black; }
+#container .fighter { width: 400px;  height: auto; }
+#container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
-#container .foot_col { height: 300px; width:30%; border: 1px black solid; margin:14px;}
+#container #select_fighter { width: 95%; }
+#container #select_fighter .mini_fighter { margin-left:20px; }
+#container #select_fighter .mini_fighter a { height: auto }
+
+#container .foot_col { height: 300px; width:30%; margin:14px;}
+
+
 
   /* button basics */
   a.fightbutton {
