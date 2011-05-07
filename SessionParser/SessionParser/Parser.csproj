@@ -43,12 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Diputado.cs" />
     <Compile Include="Intervencion.cs" />
     <Compile Include="IntervencionCollection.cs" />
     <Compile Include="IntervencionParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionParser.cs" />
+    <Compile Include="Sesion.cs" />
+    <Compile Include="SesionCollection.cs" />
+    <Compile Include="SesionParser.cs" />
+    <Compile Include="Termino.cs" />
+    <Compile Include="TerminosParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

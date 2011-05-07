@@ -1,13 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Parser
 {
-    public class SessionParser
+    public class SesionParser
     {
         private const string MARCA_INICIO_INTERVENCION = "<inicio_intervencion>";
         private IntervencionParser _intervencionParser = new IntervencionParser();
+
+        public Sesion ParsearSesion(string rutaDeSesion)
+        {
+            FileInfo fileInfo = new FileInfo(rutaDeSesion);
+            Sesion resultado = new Sesion();
+
+            resultado.Identificador = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5);
+            resultado.Intervenciones = ParsearIntervenciones(File.ReadAllText(rutaDeSesion));
+
+            return resultado;
+        }
 
         public IntervencionCollection ParsearIntervenciones(string rawSession)
         {
@@ -16,8 +27,21 @@ namespace Parser
                         GetIntervenciones(
                             NormalizarIntervenciones(rawSession)));
 
-            return new IntervencionCollection(
+            return EliminarIntervencionesIgnorables(
                         _intervencionParser.ParsearIntervenciones(rawIntervenciones));
+        }
+
+        private IntervencionCollection EliminarIntervencionesIgnorables(IList<Intervencion> intervenciones)
+        {
+            IntervencionCollection resultado = new IntervencionCollection();
+            foreach (Intervencion intervencion in intervenciones)
+            {
+                if (intervencion.NombreDiputado.ToLower().Trim() != "presidente")
+                {
+                    resultado.Add(intervencion);
+                }
+            }
+            return resultado;
         }
 
         private IList<string> GetIntervenciones(string sesionNormalizada)

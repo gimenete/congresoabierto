@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParsearIntervencion.cs" />
+    <Compile Include="ParsearTerminos.cs" />
     <Compile Include="ParsearSesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NormalizarIntervenciones.cs" />
