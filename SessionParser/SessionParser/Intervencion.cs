@@ -5,6 +5,6 @@ namespace Parser
     public class Intervencion
     {
         public string NombreDiputado { get; set; }
-        public string Text { get; set; }
+        public string Texto { get; set; }
     }
 }
