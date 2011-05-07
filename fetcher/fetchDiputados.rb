@@ -122,7 +122,7 @@ while iddiputado < upperlimit do
     p "-----------------------" 
     
     #save to redis.    
-    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
+    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
     redis.zadd "diputados", 0 , iddiputado  
     redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
   else
