@@ -23,21 +23,24 @@
 <body>
 	<div id="container">
 		<header>
-		<h1>Congreso abierto</h1>
+		<div id="logo" class="left">
+		    <img src="/img/logo.png" alt="Congreso abierto" title="Congreso abierto" width="" height="" />
+		</div>
+		<h2>¿Cansado de oírlos pelear en la tele?</h2>
 		</header>
 
 		<div id="select_fighter" class="left dummyborder default_margin" style="display:none">
 		<div id="slideshow">
 		<div id="slides_cointainer">
-		
+
 			<p><input type="text" placeholder="Escribe el nombre de un diputado"></p>
 			<p>&nbsp;</p><p>&nbsp;</p>
-			
-			
+
+
 			<% for (var i=0; i < diputados.length; i++) { %>
 				<div class="mini_fighter left" onclick="return chooseFighter('<%= diputados[i].id %>')"><img src="<%= diputados[i].foto %>"></div>
 			<% } %>
-			
+
 		</div><!-- Close slideshow -->
 		</div><!-- Close slider -->
 		</div> <!-- Close select_fighter  -->
@@ -67,22 +70,22 @@
             </div>
 		</footer>
 	</div>
-	
+
 	<div id="fullscreen" style="background-color: red; position:absolute; top:0; left:0"></div>
-	
-	
+
+
 	<script>
-	
+
 		var fighter;
 		var fighters = [];
-		
+
 		var diputados = <%- JSON.stringify(diputados) %>
-	
+
 		function flash() {
 			$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
 			return false
 		}
-		
+
 		function fight() {
 			if(canFight()) {
 				flash()
@@ -92,22 +95,23 @@
 			}
 			return false;
 		}
-		
+
 		function showFightChooser(fig) {
 			fighter = fig
 			$('#select_fighter').slideDown()
 		}
-		
+
 		function canFight() {
 			return fighters[0] !== undefined && fighters[1] !== undefined
 		}
-		
+
 		function chooseFighter(id) {
 			console.log('choosen = '+id)
 			for (var i=0; i < diputados.length; i++) {
 				if(diputados[i].id === id ) {
 					fighters[fighter] = diputados[i]
-					$('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+					// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+					$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/hulk/'+diputados[i].id+'.jpg')
 					$('#fighter'+fighter+' h2').text(diputados[i].nombre)
 
 					var enabled = canFight()
@@ -116,7 +120,7 @@
 					} else {
 						$('#fightbutton').hide();
 					}
-					
+
 					break
 				}
 			}
