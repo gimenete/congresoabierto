@@ -12,22 +12,28 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
 	res.render('index.ejs', { title: 'Hello world' })
 });
+
+app.get('/diputados', function(req, res){
+	redis.lrange('diputados', 0, -1, function(err, ids) {
+		console.log('hay '+ids.length+' diputados')
+		join(ids, 'diputado:', function(diputados) {
+			res.render('diputados.ejs', { title: 'Hello world', diputados:diputados })
+		})
+	})
+});
+
 var port = parseInt(process.argv[2], 10) || 3000
 app.listen(port)
 
 
-function $() {
-	return Array.prototype.slice.call(arguments).join(':');
-}
-
-function join(redis, arr, prefix, callback) {
+function join(arr, prefix, callback) {
 	if(arr.length == 0) {
 		callback([]);
 		return;
 	}
 	var multi = redis.multi();
 	for (var i=0; i < arr.length; i++) {
-		multi.hgetall($(prefix, arr[i]));
+		multi.hgetall(prefix+arr[i]);
 	}
 	multi.exec(function(err, reply) {
 		for (var i=0; i < arr.length; i++) {
