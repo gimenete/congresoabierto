@@ -47,20 +47,36 @@ while iddiputado < upperlimit do
   
   #save_response("test.html",html)
   doc = Hpricot(html)      
-  
+    
   nombredip=doc.search("//div[@class='nombre_dip']").inner_text
-  p nombredip
+  if (nombredip)
+    p nombredip
 
-  diputadopor=sanitize(doc.search("//div[@class='texto_dip']/ul/li[1]/div[1]").inner_text)
-  p diputadopor
-  
-  grupo=doc.search("//div[@class='texto_dip']/ul/li[1]/div[2]/a").inner_text
-  p grupo
-      
-  iddiputado=iddiputado+1   
-  p iddiputado
-  
-  p "-----------------------" 
+    diputadopor=sanitize(doc.search("//div[@class='texto_dip']/ul/li[1]/div[1]").inner_text)
+    p diputadopor
+
+    grupo=doc.search("//div[@class='texto_dip']/ul/li[1]/div[2]/a").inner_text
+    p grupo
+
+    email=doc.search("//li[@class='correo_dip']/a").inner_text
+    p email
+
+    www=doc.search("//li[@class='webperso_dip']/a").inner_text
+    p www
+
+    if (www.include? 'twitter.com')
+      twitter="twitter TODO" #TODO
+      p twitter   
+    end
+
+    foto=doc.search("//div[@class='datos_diputado']/p[1]/img").inner_text
+    p foto
+
+    iddiputado=iddiputado+1   
+    p iddiputado
+
+    p "-----------------------" 
+  end
 end
 
 p iddiputado
