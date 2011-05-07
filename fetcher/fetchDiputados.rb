@@ -59,6 +59,7 @@ end
 def QuitaAcentos (str)
   str=str.gsub("á","a").gsub("à","a").gsub("é","e").gsub("è","e").gsub("í","i").gsub("ì","i").gsub("ó","o").gsub("ò","o").gsub("ú","u").gsub("ù","u")
   str=str.gsub("Á","A").gsub("À","A").gsub("É","E").gsub("È","E").gsub("Í","I").gsub("Ì","I").gsub("Ó","O").gsub("Ò","O").gsub("Ú","U").gsub("Ù","U")
+  str=str.gsub("ç","c")
 end
   
 def sanitize(str)

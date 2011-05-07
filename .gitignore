@@ -1,7 +1,8 @@
-
+*.u1conflict
 SessionParser/TestResults/
 SessionParser/_ReSharper.SessionParser/
 SessionParser/SersionParserTests/bin/
 SessionParser/SersionParserTests/obj/
 SessionParser/SessionParser/bin/
 SessionParser/SessionParser/obj/
+

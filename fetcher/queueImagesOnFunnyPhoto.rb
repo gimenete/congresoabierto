@@ -8,14 +8,13 @@ require 'hpricot'
 #require 'redis'
 require 'iconv'
 
-
 def img_existe (path)
   path=@outputbasepath + name
   existe=File.exist?(path)
 end
 
 def logerror (text)
-   File.open(@outputbasepath + "error.txt", 'w') do |f|
+   File.open(@outputbasepath + "error.txt", 'a') do |f|
       f.puts text
    end
 end
@@ -41,9 +40,7 @@ end
 @baseurl="http://www.congreso.es"
 
 
-@upperlimit=20
-
-
+@upperlimit=500
 
 def process_template(template)
   p "processing template #{template}..."
@@ -99,6 +96,7 @@ def process_template(template)
           p "error..."
           logerror("error processing #{iddiputado}. Error: #{status}")        
           iddiputado=iddiputado+1  
+          currentid_processing=0
         else
           image=Hpricot(html).search("//result_url").inner_text
           p "result url: #{image}"
@@ -106,6 +104,7 @@ def process_template(template)
           save_response(imagefile, image)
 
           iddiputado=iddiputado+1  
+          currentid_processing=0
         end
         p "---------------------------------------------------------"    
       else
