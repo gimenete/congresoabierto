@@ -8,10 +8,23 @@ require 'hpricot'
 #require 'redis'
 require 'iconv'
 
-def save_response (filename, response)
-   File.open(@outputbasepath + filename, 'w') do |f|
+
+def img_existe (path)
+  path=@outputbasepath + name
+  existe=File.exist?(path)
+end
+
+def logerror (text)
+   File.open(@outputbasepath + "error.txt", 'w') do |f|
+      f.puts text
+   end
+end
+
+def save_response (fullpath, response)
+   File.open(fullpath, 'w') do |f|
       f.puts response
    end
+   p "saving image to #{fullpath}"
 end
 
 def fetch_html_from_url (url)
@@ -27,59 +40,94 @@ end
 @outputbasepath="/Users/ivanloire/Dropbox/Projects/abredatos2011/rawData/images/"
 @baseurl="http://www.congreso.es"
 
-iddiputado=1
-upperlimit=20
 
-#redis = Redis.new
+@upperlimit=20
 
-while iddiputado < upperlimit do
-  url = @baseurl + "/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&idDiputado=#{iddiputado}"
+
+
+def process_template(template)
+  p "processing template #{template}..."
   
-  p "fetching images  for id=#{iddiputado}..."
-  html=fetch_html_from_url(url)
-  
-  doc = Hpricot(html)      
+  iddiputado=1
+  currentid_processing=0
     
-  nombredip_element=doc.search("//div[@class='nombre_dip']")
-  if (!nombredip_element.nil?)
-    foto=doc.search("//div[@id='datos_diputado']/p[1]/img")[0]
-    #p foto[:src]
-    fotourl=@baseurl + foto[:src]
-    p fotourl 
-    
-    #queue foto
-    url_processing="http://ope-api.pho.to/queued.php?key=1FBJMVRPFW81ACRG168LIHZRPY2K&result_size=800&methods_list=collage:template_name=coal&image_url=#{fotourl}&result_format=jpg&thumb1_size=200&thumb2_size=100"
-    html=fetch_html_from_url(url_processing)
-    p html
-    responsefromserver = Hpricot(html)  
-    idresponse=responsefromserver.search("//request_id").inner_text
-    p "idresponse: #{idresponse}"
-    
-    #first response from server
-    url_reply="http://ope-api.pho.to/get-result.php?request_id=#{idresponse}"
-    html=fetch_html_from_url(url_reply)
-    p html
-    responsefromserver = Hpricot(html)  
-    status=responsefromserver.search("//status").inner_text
-    if (status=="InProgress")
-      p "in progress..."
-    else
-      image=responsefromserver.search("//result_url").inner_text
-      p "result url: #{image}"
-      p "---------------------------------------------------------"
-      #p html    
-
-      image=fetch_html_from_url(image)
-      save_response("#{iddiputado}.jpg", image)
-      
-      iddiputado=iddiputado+1  
-    end
-  else
-    p "Diputado not found at id=#{iddiputado}"
+  directory_name = @outputbasepath + template
+  if !FileTest::directory?(directory_name)
+    Dir::mkdir(directory_name)
   end
+  
+  while iddiputado < @upperlimit do
+    
+    #if file image doesn't exist
+    imagefile=directory_name + "/" + iddiputado.to_s + ".jpg"
+    if (File.exist?(imagefile))
+      p "image #{imagefile} exists. skipping..."
+      iddiputado=iddiputado+1  
+    else
+
+      url = @baseurl + "/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&idDiputado=#{iddiputado}"
+
+      p "fetching images  for id=#{iddiputado}..."
+      html=fetch_html_from_url(url)
+
+      doc = Hpricot(html)      
+
+      nombredip_element=doc.search("//div[@class='nombre_dip']")
+
+      if (!nombredip_element.nil?)
+        foto=doc.search("//div[@id='datos_diputado']/p[1]/img")[0]
+        fotourl=@baseurl + foto[:src]
+        p fotourl     
+
+        if (currentid_processing!=iddiputado) #in progress
+          #queue foto
+          url_processing="http://ope-api.pho.to/queued.php?key=1FBJMVRPFW81ACRG168LIHZRPY2K&result_size=800&methods_list=collage:template_name=#{template}&image_url=#{fotourl}&result_format=jpg&thumb1_size=200&thumb2_size=100"
+          html=fetch_html_from_url(url_processing)
+          #p html
+          idresponse=Hpricot(html).search("//request_id").inner_text
+          p "idresponse: #{idresponse}"      
+        end
+
+        #first response from server
+        html=fetch_html_from_url("http://ope-api.pho.to/get-result.php?request_id=#{idresponse}")
+        #p html
+        status=Hpricot(html).search("//status").inner_text
+        if (status=="InProgress")
+          p "in progress..."
+          currentid_processing=iddiputado
+        elsif (status=="Error")
+          p "error..."
+          logerror("error processing #{iddiputado}. Error: #{status}")        
+          iddiputado=iddiputado+1  
+        else
+          image=Hpricot(html).search("//result_url").inner_text
+          p "result url: #{image}"
+          image=fetch_html_from_url(image)
+          save_response(imagefile, image)
+
+          iddiputado=iddiputado+1  
+        end
+        p "---------------------------------------------------------"    
+      else
+        p "Diputado not found at id=#{iddiputado}"
+      end #end nombredip no nulo
+    end
+  end #end while
 end
 
-p iddiputado
+if (ARGV[0])
+  @outputbasepath=ARGV[0]
+  p "using custom path: #{ARGV[0]}"
+end
+
+process_template("hulk")
+process_template("coal")
+process_template("golum")
+process_template("avatar")
+process_template("rambo")
+process_template("yoda")
+process_template("boxer")
+
   
   
   
