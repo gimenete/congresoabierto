@@ -10,10 +10,15 @@ var app = express.createServer()
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
-	res.render('index.ejs', { title: 'Hello world' })
+	redis.lrange('diputados', 0, -1, function(err, ids) {
+		console.log('hay '+ids.length+' diputados')
+		join(ids, 'diputado:', function(diputados) {
+			res.render('index.ejs', { title: 'Hello world', diputados:diputados })
+		})
+	})
 });
 
-app.get('/diputados', function(req, res){
+app.get('/diputados', function(req, res) {
 	redis.lrange('diputados', 0, -1, function(err, ids) {
 		console.log('hay '+ids.length+' diputados')
 		join(ids, 'diputado:', function(diputados) {

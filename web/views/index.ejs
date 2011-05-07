@@ -42,20 +42,11 @@
 		<div id="select_fighter" class="left dummyborder default_margin">
 		<div id="slideshow">
 		<div id="slides_cointainer">
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-  		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
-		    <div class="mini_fighter left"><img src="/img/mini-avatar.jpg"></div>
+		
+			<% for (var i=0; i < diputados.length; i++) { %>
+				<div class="mini_fighter left"><img src="<%= diputados[i].foto %>"></div>
+			<% } %>
+			
 		</div><!-- Close slideshow -->
 		</div><!-- Close slider -->
 		</div> <!-- Close select_fighter  -->
