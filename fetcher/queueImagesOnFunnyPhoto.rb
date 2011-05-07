@@ -40,9 +40,7 @@ end
 @baseurl="http://www.congreso.es"
 
 
-@upperlimit=20
-
-
+@upperlimit=500
 
 def process_template(template)
   p "processing template #{template}..."
