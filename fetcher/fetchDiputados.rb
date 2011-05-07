@@ -1,10 +1,13 @@
+# coding: utf-8
+
 #abredatos 2011
 #T49
 #fetch all diputados from congress url
-
+require 'rubygems'
 require 'open-uri'
 require 'hpricot'
 require 'redis'
+require 'iconv'
 
 @outputbasepath="/Users/ivanloire/Dropbox/Projects/abredatos2011/rawData/diputados/"
 @baseurl="http://www.congreso.es"
@@ -23,6 +26,10 @@ def fetch_html_from_url (url)
       "Referer" => "http://www.abredatos.com/") { |f|
       response = f.read
   }
+  
+  #ic = Iconv.new('UTF-8', 'WINDOWS-1252')
+  #ic = Iconv.new('UTF-8', 'UTF-8')
+  #response = ic.iconv(response + ' ')[0..-2]
   response
 end
 
@@ -32,9 +39,31 @@ def fetch_and_save_document (url, name)
   save_response(name,fetch_html_from_url(url))
 end
 
+def normalize_name (name)  
+  name=sanitize(name)
+  name=ParseSignos(name)
+  name=QuitaAcentos(name)
+  name=name.downcase
+end
 
+#sanitize  
+def ParseSignos(str)
+  str=str.gsub(",","")
+  str=str.gsub(".","")
+  str=str.gsub(" - ","-")
+  #str=str.gsub("-"," ")
+  str=str.gsub(" ","-")    
+  str=str.strip
+end
+
+def QuitaAcentos (str)
+  str=str.gsub("á","a").gsub("à","a").gsub("é","e").gsub("è","e").gsub("í","i").gsub("ì","i").gsub("ó","o").gsub("ò","o").gsub("ú","u").gsub("ù","u")
+  str=str.gsub("Á","A").gsub("À","A").gsub("É","E").gsub("È","E").gsub("Í","I").gsub("Ì","I").gsub("Ó","O").gsub("Ò","O").gsub("Ú","U").gsub("Ù","U")
+  str=str.gsub("ç","c")
+end
+  
 def sanitize(str)
-  str.gsub("\r\n","").squeeze(" ").strip
+  str.gsub("\r\n","").gsub("&nbsp;"," ").squeeze(" ").strip
 end
 
 iddiputado=1
@@ -54,13 +83,20 @@ while iddiputado < upperlimit do
   #save_response("test.html",html)
   doc = Hpricot(html)      
     
-  nombredip=doc.search("//div[@class='nombre_dip']").inner_text
-  if (nombredip)
+  nombredip_element=doc.search("//div[@class='nombre_dip']")
+  if (!nombredip_element.nil?)
+    nombredip=nombredip_element.inner_text
     p nombredip
 
+    nombrenormalizado=normalize_name(nombredip_element.inner_html)
+    p nombrenormalizado
+    
     diputadopor=sanitize(doc.search("//div[@class='texto_dip']/ul/li[1]/div[1]").inner_text)
     p diputadopor
 
+    grupobreve=doc.search("//p[@class='nombre_grupo']").inner_text
+    p grupobreve
+    
     grupo=doc.search("//div[@class='texto_dip']/ul/li[1]/div[2]/a").inner_text
     p grupo
 
@@ -86,9 +122,12 @@ while iddiputado < upperlimit do
 
     p "-----------------------" 
     
-    #save to redis.
-    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "diputadopor", diputadopor, "grupo", grupo, "email", email, "www", www, "twitter", twitter, "foto", foto 
-    redis.lpush "diputados", iddiputado    
+    #save to redis.    
+    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
+    redis.zadd "diputados", 0 , iddiputado  
+    redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
+  else
+    p "Diputado not found at id=#{iddiputado}"
   end
 end
 

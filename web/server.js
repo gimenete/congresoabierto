@@ -10,24 +10,46 @@ var app = express.createServer()
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
-	res.render('index.ejs', { title: 'Hello world' })
+	redis.zrange('diputados', 0, -1, function(err, ids) {
+		console.log('hay '+ids.length+' diputados')
+		join(ids, 'diputado:', function(diputados) {
+			res.render('index.ejs', { title: 'Hello world', diputados:diputados })
+		})
+	})
 });
+
+app.get('/diputados', function(req, res) {
+	redis.zrange('diputados', 0, -1, function(err, ids) {
+		console.log('hay '+ids.length+' diputados')
+		join(ids, 'diputado:', function(diputados) {
+			res.render('diputados.ejs', { title: 'Hello world', diputados:diputados })
+		})
+	})
+});
+
+app.get('/fight/:id1/:id2', function(req, res) {
+	var multi = redis.multi()
+	multi.hgetall('diputado:'+req.params.id1)
+	multi.hgetall('diputado:'+req.params.id2)
+	multi.exec(function(err, reply) {
+		console.log(reply)
+		res.header("Content-Type", "application/json;charset=utf8")
+		res.send(JSON.stringify(reply));
+	})
+})
+
 var port = parseInt(process.argv[2], 10) || 3000
 app.listen(port)
 
 
-function $() {
-	return Array.prototype.slice.call(arguments).join(':');
-}
-
-function join(redis, arr, prefix, callback) {
+function join(arr, prefix, callback) {
 	if(arr.length == 0) {
 		callback([]);
 		return;
 	}
 	var multi = redis.multi();
 	for (var i=0; i < arr.length; i++) {
-		multi.hgetall($(prefix, arr[i]));
+		multi.hgetall(prefix+arr[i]);
 	}
 	multi.exec(function(err, reply) {
 		for (var i=0; i < arr.length; i++) {

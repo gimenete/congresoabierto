@@ -1,0 +1,15 @@
+<% for (var i=0; i < diputados.length; i++) { %>
+	<h2><%= diputados[i].nombre %> (<%= diputados[i].nombrenormalizado %>)</h2>
+	
+	<ul>
+		<li><%= diputados[i].grupo %></li>
+		<li><%= diputados[i].grupobreve %></li>
+		<li><img width="500" src="http://www.congresoabierto.com/avatars/hulk/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="500" src="http://www.congresoabierto.com/avatars/golum/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="300" src="http://www.congresoabierto.com/avatars/yoda/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="500" src="http://www.congresoabierto.com/avatars/rambo/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="300" src="http://www.congresoabierto.com/avatars/avatar/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="500" src="http://www.congresoabierto.com/avatars/soldier/<%= diputados[i].id %>.jpg" /></li>
+		<li><img width="500" src="http://www.congresoabierto.com/avatars/boxer/<%= diputados[i].id %>.jpg" /></li>
+	</ul>
+<% } %>
