@@ -96,6 +96,7 @@ def process_template(template)
           p "error..."
           logerror("error processing #{iddiputado}. Error: #{status}")        
           iddiputado=iddiputado+1  
+          currentid_processing=0
         else
           image=Hpricot(html).search("//result_url").inner_text
           p "result url: #{image}"
@@ -103,6 +104,7 @@ def process_template(template)
           save_response(imagefile, image)
 
           iddiputado=iddiputado+1  
+          currentid_processing=0
         end
         p "---------------------------------------------------------"    
       else
