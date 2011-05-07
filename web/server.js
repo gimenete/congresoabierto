@@ -27,6 +27,17 @@ app.get('/diputados', function(req, res) {
 	})
 });
 
+app.get('/fight/:id1/:id2', function(req, res) {
+	var multi = redis.multi()
+	multi.hgetall('diputado:'+req.params.id1)
+	multi.hgetall('diputado:'+req.params.id2)
+	multi.exec(function(err, reply) {
+		console.log(reply)
+		res.header("Content-Type", "application/json;charset=utf8")
+		res.send(JSON.stringify(reply));
+	})
+})
+
 var port = parseInt(process.argv[2], 10) || 3000
 app.listen(port)
 

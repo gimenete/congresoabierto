@@ -33,7 +33,7 @@
 		</div>
 		<div id="vs" class="left">
             <h3>Vs.</h3>
-            <a href="#" class="fightbutton"><span><span class="icon"></span>Fight!</span></a>
+            <a href="#" class="fightbutton" onclick="return fight()"><span><span class="icon"></span>Fight!</span></a>
 		</div>
 		<div class="fighter left dummyborder default_margin">
             <h2>Fighter 2</h2>
@@ -61,6 +61,29 @@
             </div>
 		</footer>
 	</div>
+	
+	<div id="fullscreen" style="background-color: red; position:absolute; top:0; left:0"></div>
+	
+	
+	<p><a href="#" onclick="return flash()">Click me</a></p>
+	
+	
+	<script>
+	
+		var diputados = <%- JSON.stringify(diputados) %>
+	
+		function flash() {
+			$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
+			return false
+		}
+		
+		function fight() {
+			$.getJSON('/fight/100/2', function(data) {
+				console.log(data)
+			});
+			return false;
+		}
+	</script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.1.js"%3E%3C/script%3E'))</script>
