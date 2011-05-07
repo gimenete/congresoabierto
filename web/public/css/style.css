@@ -98,15 +98,30 @@ header h1 { font-size: 30px; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
-#container #select_fighter { width: 95%; }
-#container #select_fighter .mini_fighter { margin-left:20px; }
+#container #select_fighter { width: 95%; padding: 20px 0; background-color: #252525;}
+
+#container #select_fighter .mini_fighter { margin-left: 20px; }
 #container #select_fighter .mini_fighter a { height: auto }
 
 #container .foot_col { height: 300px; width:30%; margin:14px;}
 
 
 
-  /* button basics */
+/* Slideshow controls style */
+
+#slideshow { margin:0 auto; width: 860px; height:142px;	/*background:transparent url(/img/bg_slideshow.jpg) no-repeat 0 0;*/ position:relative; }
+
+#container #select_fighter #slides_cointainer { margin:0 auto; /*width:630px;*/ width: 780px; height:142px; overflow:auto; /* allow scrollbar */ position:relative; }
+
+
+#slideshow #slidesContainer .slide { margin:0 auto; width:560px; height:200px; }
+
+.control { display:block; width:39px; height:142px; text-indent:-10000px; position:absolute; cursor: pointer; }
+#leftControl { top:0; left:0; background:transparent url(/img/control_left.jpg) no-repeat 0 0; }
+#rightControl { top:0; right:0; background:transparent url(/img/control_right.jpg) no-repeat 0 0; }
+
+
+  /* Fight button */
   a.fightbutton {
     display:inline-block;
     height:23px;
