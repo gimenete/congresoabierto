@@ -38,7 +38,7 @@ end
 
 paging=20 #number of items for paging (careful, max=25 items, hardcoded in congresoweb.es, don't use more than that)
 page = 0
-upperlimit=200
+upperlimit=2000
 counterlinks=0
 while page < upperlimit do
   from=page
