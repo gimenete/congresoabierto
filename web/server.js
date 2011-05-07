@@ -9,10 +9,32 @@ redis.on("error", function (err) {
 var app = express.createServer()
 
 app.get('/', function(req, res){
-    res.send('Hello World')
+	res.render('index.ejs', { title: 'Hello world', layout:false })
 });
 var port = parseInt(process.argv[2], 10) || 3000
 app.listen(3000)
+
+
+function $() {
+	return Array.prototype.slice.call(arguments).join(':');
+}
+
+function join(redis, arr, prefix, callback) {
+	if(arr.length == 0) {
+		callback([]);
+		return;
+	}
+	var multi = redis.multi();
+	for (var i=0; i < arr.length; i++) {
+		multi.hgetall($(prefix, arr[i]));
+	}
+	multi.exec(function(err, reply) {
+		for (var i=0; i < arr.length; i++) {
+			reply[i].id = arr[i]
+		}
+		callback(reply);
+	});
+}
 
 process.on('SIGINT', function () {
 	console.log()
