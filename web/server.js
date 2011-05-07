@@ -13,7 +13,7 @@ app.get('/', function(req, res){
 	res.render('index.ejs', { title: 'Hello world' })
 });
 var port = parseInt(process.argv[2], 10) || 3000
-app.listen(3000)
+app.listen(port)
 
 
 function $() {
