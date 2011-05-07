@@ -87,7 +87,7 @@ while iddiputado < upperlimit do
     p "-----------------------" 
     
     #save to redis.
-    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "diputadopor", diputadopor, "grupo", grupo, "email", email, "www", www, "twitter", twitter, "foto", foto 
+    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "diputadopor", diputadopor, "grupo", grupo, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
     redis.lpush "diputados", iddiputado    
   end
 end
