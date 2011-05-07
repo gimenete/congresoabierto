@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Parser
@@ -6,12 +7,17 @@ namespace Parser
     public class SessionParser
     {
         private const string MARCA_INICIO_INTERVENCION = "<inicio_intervencion>";
+        private IntervencionParser _intervencionParser = new IntervencionParser();
 
-        public IList<string> ParsearIntervenciones(string rawSession)
+        public IntervencionCollection ParsearIntervenciones(string rawSession)
         {
-            return EliminarMarcasDeIntervenciones(
+            IList<string> rawIntervenciones =
+                EliminarMarcasDeIntervenciones(
                         GetIntervenciones(
                             NormalizarIntervenciones(rawSession)));
+
+            return new IntervencionCollection(
+                        _intervencionParser.ParsearIntervenciones(rawIntervenciones));
         }
 
         private IList<string> GetIntervenciones(string sesionNormalizada)

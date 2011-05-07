@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Intervencion.cs" />
+    <Compile Include="IntervencionCollection.cs" />
+    <Compile Include="IntervencionParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionParser.cs" />
