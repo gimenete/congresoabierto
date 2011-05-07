@@ -53,7 +53,7 @@
 		</div>
 		<div id="vs" class="left">
             <h3>Vs.</h3>
-            <a href="#" class="fightbutton" onclick="return fight()"><span><span class="icon"></span>Fight!</span></a>
+            <a href="#" class="fightbutton" id="fightbutton" style="display:none" onclick="return fight()"><span><span class="icon"></span>Fight!</span></a>
 		</div>
 		<div class="fighter left dummyborder default_margin" id="fighter1">
             <h2>Fighter 2</h2>
@@ -77,6 +77,8 @@
 	<script>
 
 		var fighter;
+		var fighters = [];
+
 		var diputados = <%- JSON.stringify(diputados) %>
 
 		function flash() {
@@ -85,10 +87,12 @@
 		}
 
 		function fight() {
-	logo		flash()
-			$.getJSON('/fight/100/2', function(data) {
-				console.log(data)
-			});
+			if(canFight()) {
+				flash()
+				$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
+					console.log(data)
+				});
+			}
 			return false;
 		}
 
@@ -97,12 +101,25 @@
 			$('#select_fighter').slideDown()
 		}
 
+		function canFight() {
+			return fighters[0] !== undefined && fighters[1] !== undefined
+		}
+
 		function chooseFighter(id) {
 			console.log('choosen = '+id)
 			for (var i=0; i < diputados.length; i++) {
 				if(diputados[i].id === id ) {
+					fighters[fighter] = diputados[i]
 					$('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
 					$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+
+					var enabled = canFight()
+					if(enabled) {
+						$('#fightbutton').show();
+					} else {
+						$('#fightbutton').hide();
+					}
+
 					break
 				}
 			}
