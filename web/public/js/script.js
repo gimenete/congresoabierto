@@ -1,4 +1,6 @@
 $(document).ready(function(){
+ loadImages()
+
   var currentPosition = 0;
   var slideWidth = 130;
   var slides = $('.mini_fighter');
@@ -48,7 +50,6 @@ $(document).ready(function(){
 	// Hide right arrow if position is last slide
     if(position==numberOfSlides-1){ $('#rightControl').hide() } else{ $('#rightControl').show() }
   }
-	loadImages()
 
 });
 
@@ -57,6 +58,7 @@ $(document).ready(function(){
 	var fighters = [];
 	var type = 0
 	var types = ['hulk', 'coal', 'golum', 'avatar', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman']
+
 
 	function flash() {
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
@@ -74,17 +76,27 @@ $(document).ready(function(){
 		$('#fighter0 img')
 			.animate({left:'100px', top:'-200px'}, 250)
 			.animate({left:'200px', top:'0px'}, 250)
-			.animate({left:'0px'}, 500)
-			.animate({left:'200px'}, 500)
-			.animate({left:'0px'}, 500);
+			.animate({left:'0px'}, 250)
+			.animate({left:'200px'}, 250)
+			.animate({left:'100px', top: '-50px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
 			
 		$('#fighter1 img')
 			.animate({left:'-100px', top:'-200px'}, 250)
 			.animate({left:'-200px', top:'0px'}, 250)
-			.animate({left:'0px'}, 500)
-			.animate({top:'-200px'}, 500)
-			.animate({top:'0px'}, 500);
+			.animate({left:'0px', top:'-50px'}, 125)
+			.animate({left:'0px', top:'0px'}, 125)
+			.animate({top:'-100px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
 		
+		talk('menuda somanta palos le ha dado diputada 1 a diputada 2')
+				
 		return false;
 	}
 		
@@ -124,6 +136,10 @@ $(document).ready(function(){
 		}
 	}
 	
+	function talk(str){
+		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
+	}
+	
 	function loadImages() {
 		var slides_cointainer = $('#slides_cointainer')
 		for (var i=0; i < diputados.length; i++) {
@@ -154,27 +170,30 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-		console.log('choosen = '+i)
-		// for (var i=0; i < diputados.length; i++) {
-		// if(diputados[i].id === id ) {
+			console.log('choosen = '+i)
+			// for (var i=0; i < diputados.length; i++) {
+			// if(diputados[i].id === id ) {
 
-		fighters[fighter] = diputados[i]
-		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
-		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+			fighters[fighter] = diputados[i]
+			// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+			$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+			$('#fighter'+fighter+' h2').text(diputados[i].nombre)
 
-		type = type + 1
-		if (type >= types.length) { type = 0 }
-		console.log(type)
+			talk(diputados[i].nombre + ' al ring!')
+		
+			type = type + 1
+			if (type >= types.length) { type = 0 }
+			console.log(type)
 
-		var enabled = canFight()
-		if(enabled) {
-			$('#fightbutton').show();
-		} else {
-			$('#fightbutton').hide();
-		}
+			var enabled = canFight()
+			if(enabled) {
+				$('#fightbutton').show();
+			} else {
+				$('#fightbutton').hide();
+			}
 
-		$('#select_fighter').slideUp();
-		return false
+			$('#select_fighter').slideUp();
+			return false
 	}
+
 
