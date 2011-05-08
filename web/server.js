@@ -13,7 +13,7 @@ var app = express.createServer()
 app.use(express.static(__dirname + publicdir));
 
 app.get('/', function(req, res){
-	redis.zrange('diputados', 0, -1, function(err, ids) {
+	redis.zrevrange('diputados', 0, -1, function(err, ids) {
 		console.log('hay '+ids.length+' diputados')
 		join(ids, 'diputado:', function(diputados) {
 			for (var i=0; i < diputados.length; i++) {
