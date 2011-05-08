@@ -46,7 +46,9 @@ function multiplePunchAttact(){
 }
 
 function rumbleLosser(){
-	fight_loser.jrumble({ rumbleEvent: 'constant'});
+	var imgloser=loser.find('img')
+	imglosser.css("opacity", "0.5")
+	imgloser.jrumble({ rumbleEvent: 'constant'});
 }
 
 function empty(){}

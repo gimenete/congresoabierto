@@ -59,7 +59,7 @@ $(document).ready(function(){
 
 });
 
-
+	var winner, loser;
 	var fighter;
 	var fighters = [];
 	var type = 0
@@ -83,7 +83,7 @@ $(document).ready(function(){
 				.animate({left:'0px', top: '0px'}, 250)
 				.animate({left:'100px', top:'-200px'}, 250)
 				.animate({left:'200px', top:'0px'}, 250)
-				.animate({left:'0px', top: '0px'}, 250)
+				.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
 
 			$('#fighter1 img')
 				.animate({left:'-100px', top:'-200px'}, 250)
@@ -95,8 +95,8 @@ $(document).ready(function(){
 				.animate({left:'-100px', top:'-200px'}, 250)
 				.animate({left:'-200px', top:'0px'}, 250)
 				.animate({top:'0px', left:'0px'}, 250)
-	}
-    
+	}    
+
 
 	function chooseFighterById(_id) {
 		for (var i=0; i < diputados.length; i++) {
@@ -144,18 +144,25 @@ $(document).ready(function(){
 					
 				if (data[0].puntuacion > data[1].puntuacion)
 				{
-					var winner=$('#fighter0')
-					var loser=$('#fighter1')
+					punchAttackLeftToRight()
+					winner=$('#fighter0')
+					loser=$('#fighter1')
 				}
 				else{
-					var winner=$('#fighter1')
-					var loser=$('#fighter0')
-				}
-					
-				//loser.hide('slow')
-				winner.css('background-color','yellow')
-				winner.append('<img class=winner src=/img/winner.png>')
-											
+					punchAttackRightToLeft()				
+					winner=$('#fighter1')
+					loser=$('#fighter0')					
+				}					
+				
+				setTimeout(function(){
+					winner.css('background-color','yellow')
+					winner.append('<img class=winner src=/img/winner.png>')	
+					for (i=0;i<2;i++){	
+						var info_container = $('#info'+i)
+						info_container.show('slow')
+					}										
+				},3000);
+
 			});
 	}
 
@@ -168,24 +175,15 @@ $(document).ready(function(){
 		if(canFight()) {
 			flash()
 			setTimeout(function(){
-				fightfetchdata()
+				animatefight()				
 			},2000);	
 		}
 		else{
 			alert('Imposible comenzar la lucha!')
 		}
-	
-	
-
-		animatefight()
-		
+			
 		//score
-
 		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
-		for (i=0;i<2;i++){	
-			var info_container = $('#info'+i)
-			info_container.show('slow')
-		}	
 
 		return false;
 	}
