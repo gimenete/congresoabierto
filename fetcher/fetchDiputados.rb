@@ -67,7 +67,7 @@ def sanitize(str)
   str.gsub("\r\n","").gsub("&nbsp;"," ").squeeze(" ").strip
 end
 
-iddiputado=1
+iddiputado=105
 upperlimit=500
 
 redis = Redis.new
@@ -109,7 +109,7 @@ while iddiputado < upperlimit do
 
     twitter=""
     if (www.include? 'twitter.com')
-      twitter="twitter TODO" #TODO
+      twitter=www.gsub('http://www.twitter.com','').gsub('www.twitter.com','').gsub('http://twitter.com','').gsub('twitter.com','').gsub('/','')
       p twitter   
     end
 

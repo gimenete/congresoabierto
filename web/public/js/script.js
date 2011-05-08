@@ -57,7 +57,7 @@ $(document).ready(function(){
 	var fighter;
 	var fighters = [];
 	var type = 0
-	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator']
+	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator','simpson','pirateofthecaribbean','ilikemoney']
 
 
 	function flash() {
@@ -276,14 +276,5 @@ $(document).ready(function(){
 		return false
 	}
 
-	function punch1(){
-		var punch = $("<img src='/img/punch.gif' class='punch1'/>");
-		punch.appendTo('#fighter0');
-		punch.css("left","200px").css("top","300px").css("opacity","0.0");
-		punch.animate({opacity: 1}, {queue: false, duration: 200})
-			 .animate({left: '700px', top: '100px'}, {queue: false, duration: 600})
-			 .animate({opacity: 1}, 300)
-			 .animate({opacity: 0.0}, 100);
-	}
 
 

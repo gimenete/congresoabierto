@@ -33,14 +33,16 @@
 		<div id="select_fighter" class="left dummyborder default_margin" style="display:none">
 		<div id="slideshow">
 			<div id="filtros">
-				<p>
+				<p id="searchform" class="left">
 					<input id="autocomplete" type="text" placeholder="Escribe el nombre de un diputado">
 				</p>
+				<div class="left partidos">
 				<a href="javascript:void(0)" onclick="loadImagesByGroup('PP')">PP</a>
 				<a href="javascript:void(0)" onclick="loadImagesByGroup('PSOE')">PSOE</a>
 				<a href="javascript:void(0)" onclick="loadImagesByGroup('')">Todos</a>
+				</div>
 			</div>
-
+        <div class="clear"></div>
 			<div id="slides_cointainer">
 
 				<p>&nbsp;</p><p>&nbsp;</p>
@@ -49,7 +51,11 @@
 		</div><!-- Close slideshow -->
 		</div> <!-- Close select_fighter  -->
 
-<a href="#" onclick="punch1();return false;">golpe1</a>
+<a href="#" onclick="punch1();return false;">golpe1</a> |
+<a href="#" onclick="punch2();return false;">golpe2</a> |
+<a href="#" onclick="punch3();return false;">golpe3</a> |
+<a href="#" onclick="multi_punch1();return false;">golpe multiple</a> |
+<a href="#" onclick="$('#fighter1 .avatar').jrumble({ rumbleEvent: 'constant'});">parar</a>
 
 		<div id="main" role="main" >
 		<div class="fighter left dummyborder default_margin" id="fighter0">
@@ -57,9 +63,8 @@
             <h3>grupo</h3>
             <div class="avatar left" onclick="return showFightChooser(0)">
 				<img src="/img/avatar.jpg"  style="position:relative;width:300px">
-				<div id="info0">																									
+				<div id="info0">
 				</div>
-				<a href="">cambiar de traje</a>				
 			</div>
 		</div>
 		<div id="vs" class="left">
@@ -69,10 +74,9 @@
             <h2>Diputado 2</h2>
             <h3>grupo</h3>
             <div class="avatar left" onclick="return showFightChooser(1)">
-				<img src="/img/avatar.jpg"  style="position:relative;width:300px">				
-				<div id="info1">																							
+				<img src="/img/avatar.jpg"  style="position:relative;width:300px">
+				<div id="info1">
 				</div>
-				<a href="">cambiar de traje</a>								
 			</div>
 		</div>
         <img src="/img/vs.png" alt="Versus fight" title="Fight" id="versus">
@@ -95,6 +99,7 @@
 	<script src="js/plugins.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/script_ruben.js"></script>
+	<script src="js/jrumble.1.1.min.js"></script>
 	<!--[if lt IE 7 ]>
 	<script src="js/libs/dd_belatedpng.js"></script>
 	<script> DD_belatedPNG.fix('img, .png_bg');</script>

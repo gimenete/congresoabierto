@@ -106,21 +106,21 @@ background-size: cover;
 
 header { height: 154px; }
 header h1 { font-size: 30px; }
-<<<<<<< HEAD
 #container .fighter { width: 400px;  height: auto; position: relative; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
-=======
 #container #main { position: relative; }
 #container .fighter { width: 400px;  height: auto; }
 #container #vs {  width: 25px; height: auto; margin:320px 20px 20px 20px; }
-#container #versus { position:absolute; top: 310px; left: 367px; height: 149px; width: 226px; z-index: 999;}
->>>>>>> 6b4f07d9bc354ce0efbec7c222db9deb016a8a38
+#container #versus { position:absolute; top: 175px; left: 368px; height: 149px; width: 226px; z-index: 999;}
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
 #container #select_fighter { width: 95%; padding: 20px 0;}
+#container #filtros { padding-bottom: 20px; }
+#container #filtros #searchform { width: 50%; margin-bottom: 20px; }
+#container #filtros .partidos { width: 50%; }
 #container .ficha { background-color: white; opacity: 0.8; top: 500px; height: 500px; width: 400px; position:absolute; }
 #container h2 { }
-#container #select_fighter .mini_fighter { margin-left: 20px; width:50px;height:80px;}
+#container #select_fighter .mini_fighter { margin-left: 20px; width:130px;height:150px;}
 #container #select_fighter .mini_fighter a { height: auto }
 
 #container .foot_col { height: 300px; width:30%; margin:14px;}
@@ -129,7 +129,7 @@ header h1 { font-size: 30px; }
 
 /* Slideshow controls style */
 
-#slideshow { margin:0 auto; width: 860px; height:142px;	/*background:transparent url(/img/bg_slideshow.jpg) no-repeat 0 0;*/ position:relative; }
+#slideshow { margin:0 auto; width: 860px; height:185px;	/*background:transparent url(/img/bg_slideshow.jpg) no-repeat 0 0;*/ position:relative; }
 
 #container #select_fighter #slides_cointainer { margin:0 auto; /*width:630px;*/ width: 780px; height:142px; overflow:auto; /* allow scrollbar */ position:relative; }
 
