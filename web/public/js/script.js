@@ -57,18 +57,44 @@ $(document).ready(function(){
 	var fighter;
 	var fighters = [];
 	var type = 0
-	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator']
+	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator','simpson','pirateofthecaribbean','ilikemoney']
 
 
 	function flash() {
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
 		return false
 	}
+	
+	function chooseFighterById(_id) {
+		for (var i=0; i < diputados.length; i++) {
+			if(diputados[i].id === _id) {
+				chooseFighter(i)
+				console.log('choose fighter = '+i+', '+_id)
+			}
+		}
+	}
+	
+	$.address.change(function(event) {
+		var tokens = event.value.split('/')
+		if(tokens.length < 4)
+			return
+		var id1 = tokens[2]
+		if(fighters[0] === undefined || fighters[0].id !== id1) {
+			fighter = 0
+			chooseFighterById(id1)
+		}
+		
+		var id2 = event.value.split('/')[3]
+		if(fighters[1] === undefined || fighters[1].id !== id2) {
+			fighter = 1
+			chooseFighterById(id2)
+		}
+	})
 
 	function fight() {
 		if(canFight()) {
 			flash()
-//			$.getJSON('/fight/1/4', function(data) {
+			$.address.path('/fight/'+fighters[0].id+'/'+fighters[1].id)
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
 				
@@ -128,7 +154,7 @@ $(document).ready(function(){
 		}
 	}
 
-	function loadImagesByGroup(grupo){	
+	function loadImagesByGroup(grupo){
 		
 		applyStyleGroup(grupo)
 		
@@ -262,14 +288,5 @@ $(document).ready(function(){
 		return false
 	}
 
-	function punch1(){
-		var punch = $("<img src='/img/punch.gif' class='punch1'/>");
-		punch.appendTo('#fighter0');
-		punch.css("left","200px").css("top","300px").css("opacity","0.0");
-		punch.animate({opacity: 1}, {queue: false, duration: 200})
-			 .animate({left: '700px', top: '100px'}, {queue: false, duration: 600})
-			 .animate({opacity: 1}, 300)
-			 .animate({opacity: 0.0}, 100);
-	}
 
 
