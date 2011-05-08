@@ -67,6 +67,7 @@ $(document).ready(function(){
 	var fighters = [];
 	var type = 0
 	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator','simpson','pirateofthecaribbean','ilikemoney']
+	type = Math.floor(Math.random()*(types.length+1));
 
 
 	function flash(callback) {
@@ -154,6 +155,8 @@ $(document).ready(function(){
 					//winner.css('background-color','yellow')
 					winner.find('.winner').show('slow')
 					showpanels()
+					talk('Menuda somanta de palos... esto ha sido casi peor que lo del congreso!!')
+					
 				}
 					
 				//who is the winner	
@@ -184,10 +187,7 @@ $(document).ready(function(){
 		else{
 			alert('Selecciona los dos contrincantes pulsando en sus fotos')
 		}
-			
-		//score
-		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
-
+		
 		return false;
 	}
 
@@ -254,7 +254,7 @@ $(document).ready(function(){
 	})
 
 	function talk(str){
-		//$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
+		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
 	}
 	
 	function loadParties() {
