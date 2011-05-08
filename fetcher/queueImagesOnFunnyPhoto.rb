@@ -42,7 +42,7 @@ def process_template(template)
   iddiputado=1
   currentid_processing=0
     
-  directory_name = @outputbasepath + template
+  directory_name = @outputbasepath + template.gsub(" ","")
   if !FileTest::directory?(directory_name)
     Dir::mkdir(directory_name)
   end
@@ -70,13 +70,15 @@ def process_template(template)
           fotourl=@baseurl + foto[:src]
           p fotourl     
 
-          if (currentid_processing!=iddiputado) #in progress
+          if (currentid_processing!=iddiputado) #not in progress
             #queue foto
-            url_processing="http://ope-api.pho.to/queued.php?key=1FBJMVRPFW81ACRG168LIHZRPY2K&result_size=800&methods_list=collage:template_name=#{template}&image_url=#{fotourl}&result_format=jpg&thumb1_size=200&thumb2_size=100"
+            templateurl=URI.escape(template)
+            url_processing="http://ope-api.pho.to/queued.php?key=1FBJMVRPFW81ACRG168LIHZRPY2K&result_size=800&methods_list=collage:template_name=#{templateurl}&image_url=#{fotourl}&result_format=jpg&thumb1_size=200&thumb2_size=100"
             html=fetch_html_from_url(url_processing)
             #p html
             idresponse=Hpricot(html).search("//request_id").inner_text
-            p "idresponse: #{idresponse}"      
+            p "idresponse: #{idresponse}"              
+            sleep (2)    
           end
 
 
@@ -86,6 +88,7 @@ def process_template(template)
           status=Hpricot(html).search("//status").inner_text
           if (status=="InProgress")
             p "in progress..."
+            sleep (1)
             currentid_processing=iddiputado
           elsif (status=="Error")
             p "error..."
@@ -129,6 +132,11 @@ elsif (ARGV[1]=="3")
   process_template("superman")
   process_template("terminator")
   process_template("simpson")  
+elsif (ARGV[1]=="4")
+  process_template("darth vader")
+  process_template("pirate of the caribbean")
+  process_template("iron man")
+  process_template("i like money")
 else
   process_template("hulk")
   #process_template("coal")

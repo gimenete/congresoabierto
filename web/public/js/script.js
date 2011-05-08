@@ -136,6 +136,48 @@ $(document).ready(function(){
 		}
 	}
 	
+	function clean(s) {
+		var r=s.toLowerCase();
+		r = r.replace(new RegExp(/\s/g),"");
+		r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+		r = r.replace(new RegExp(/æ/g),"ae");
+		r = r.replace(new RegExp(/ç/g),"c");
+		r = r.replace(new RegExp(/[èéêë]/g),"e");
+		r = r.replace(new RegExp(/[ìíîï]/g),"i");
+		r = r.replace(new RegExp(/ñ/g),"n");                
+		r = r.replace(new RegExp(/[òóôõö]/g),"o");
+		r = r.replace(new RegExp(/œ/g),"oe");
+		r = r.replace(new RegExp(/[ùúûü]/g),"u");
+		r = r.replace(new RegExp(/[ýÿ]/g),"y");
+		r = r.replace(new RegExp(/\W/g),"");
+		return r;
+	}
+	
+	$('#autocomplete').keyup(function() {
+		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		var text = clean($('#autocomplete').val())
+		for (var i=0; i < diputados.length; i++) {
+			if (clean(diputados[i].nombre).indexOf(text, 0) > 0){
+					var img = $('<img src="'+diputados[i].foto+'" />')
+					var div = $('<div class="mini_fighter left"></div>')
+					div.append(img)
+					slides_cointainer.append(div)
+
+					var func = function(k) {
+						return function(){
+							chooseFighter(k)
+						}
+					}(i)
+					div.click(func)
+			}
+		}
+		
+		if(slides_cointainer.children().size() === 0) {
+			loadImages();
+		}
+	})
+
 	function talk(str){
 		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
 	}
