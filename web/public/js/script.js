@@ -55,6 +55,9 @@ $(document).ready(function(){
 
 	var fighter;
 	var fighters = [];
+	var type = 0
+	var types = ['hulk', 'coal', 'golum', 'avatar', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman']
+
 
 	function flash() {
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
@@ -83,7 +86,7 @@ $(document).ready(function(){
 			.animate({top:'-200px'}, 500)
 			.animate({top:'0px'}, 500);
 		
-		talk('menuda somanta palos le ha dado diputada 1 a diputada 2...')
+		talk('menuda somanta palos le ha dado diputada 1 a diputada 2')
 				
 		return false;
 	}
@@ -158,25 +161,30 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-		console.log('choosen = '+i)
-		// for (var i=0; i < diputados.length; i++) {
-		// if(diputados[i].id === id ) {
+			console.log('choosen = '+i)
+			// for (var i=0; i < diputados.length; i++) {
+			// if(diputados[i].id === id ) {
 
-		fighters[fighter] = diputados[i]
-		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/hulk/'+diputados[i].id+'.jpg')
-		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+			fighters[fighter] = diputados[i]
+			// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+			$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+			$('#fighter'+fighter+' h2').text(diputados[i].nombre)
 
-		talk('diputado o diputada ' + diputados[i].nombre + '... a darse de leches!')
-				
-		var enabled = canFight()
-		if(enabled) {
-			$('#fightbutton').show();
-		} else {
-			$('#fightbutton').hide();
-		}
+			talk(diputados[i].nombre + ' al ring!')
+		
+			type = type + 1
+			if (type >= types.length) { type = 0 }
+			console.log(type)
 
-		$('#select_fighter').slideUp();
-		return false
+			var enabled = canFight()
+			if(enabled) {
+				$('#fightbutton').show();
+			} else {
+				$('#fightbutton').hide();
+			}
+
+			$('#select_fighter').slideUp();
+			return false
 	}
+
 
