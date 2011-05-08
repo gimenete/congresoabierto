@@ -63,6 +63,7 @@ app.get('/avatars/:type/:name', function(req, res) {
 				}
 			})
 		} else {
+			res.header('Content-type', 'image/jpg')
 			res.send(data)
 		}
 	})
