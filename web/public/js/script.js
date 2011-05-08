@@ -184,6 +184,8 @@ $(document).ready(function(){
 	
 	function loadImages() {
 		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		
 		for (var i=0; i < diputados.length; i++) {
 			var img = $('<img src="'+diputados[i].foto+'" />')
 			var div = $('<div class="mini_fighter left"></div>')
@@ -212,30 +214,35 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-			console.log('choosen = '+i)
-			// for (var i=0; i < diputados.length; i++) {
-			// if(diputados[i].id === id ) {
-
-			fighters[fighter] = diputados[i]
-			// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-			$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
-			$('#fighter'+fighter+' h2').text(diputados[i].nombre)
-
-			talk(diputados[i].nombre + ' al ring!')
 		
-			type = type + 1
-			if (type >= types.length) { type = 0 }
-			console.log(type)
+		console.log('choosen = '+i)
+		// for (var i=0; i < diputados.length; i++) {
+		// if(diputados[i].id === id ) {
 
-			var enabled = canFight()
-			if(enabled) {
-				$('#fightbutton').show();
-			} else {
-				$('#fightbutton').hide();
-			}
+		fighters[fighter] = diputados[i]
+		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
 
-			$('#select_fighter').slideUp();
-			return false
+		talk(diputados[i].nombre + ' al ring!')
+
+		type = type + 1
+		if (type >= types.length) { type = 0 }
+		console.log(type)
+
+		var enabled = canFight()
+		if(enabled) {
+			$('#fightbutton').show();
+		} else {
+			$('#fightbutton').hide();
+		}
+
+		$('#select_fighter').slideUp(function() {
+			console.log('close')
+			$('#autocomplete').val('')
+			loadImages()
+		});
+		return false
 	}
 
 	function punch1(){
