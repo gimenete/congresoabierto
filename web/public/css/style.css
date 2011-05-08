@@ -192,7 +192,9 @@ header h4 { width: 400px; color: #FFF; font-size: 15px; margin: 7px 40px 0 0}
   a.btn-download .icon {background-position:-40px 0;}
   a.btn-download:hover .icon, a.btn-download:focus .icon {background-position:-40px -25px;}
 
-
+  img.winner{
+	height:150px;
+  }
 
 
 

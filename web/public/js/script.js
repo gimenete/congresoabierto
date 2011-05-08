@@ -52,9 +52,15 @@ $(document).ready(function(){
     if(position==numberOfSlides-1){ $('#rightControl').hide() } else{ $('#rightControl').show() }
   }
 
+  //hide default info box
+  for (i=0;i<2;i++){	
+		var info_container = $('#info'+i)
+		info_container.hide('slow')
+  }	
+
 });
 
-
+	var winner, loser;
 	var fighter;
 	var fighters = [];
 	var type = 0
@@ -65,7 +71,34 @@ $(document).ready(function(){
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
 		return false
 	}
-	
+
+    
+	function animatefight(){
+			// var offset = $('#fighter0 img').offset();
+			$('#fighter0 img')
+				.animate({left:'100px', top:'-200px'}, 250)
+				.animate({left:'200px', top:'0px'}, 250)
+				.animate({left:'0px'}, 250)
+				.animate({left:'200px'}, 250)
+				.animate({left:'100px', top: '-50px'}, 250)
+				.animate({left:'0px', top: '0px'}, 250)
+				.animate({left:'100px', top:'-200px'}, 250)
+				.animate({left:'200px', top:'0px'}, 250)
+				.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
+
+			$('#fighter1 img')
+				.animate({left:'-100px', top:'-200px'}, 250)
+				.animate({left:'-200px', top:'0px'}, 250)
+				.animate({left:'0px', top:'-50px'}, 125)
+				.animate({left:'0px', top:'0px'}, 125)
+				.animate({top:'-100px'}, 250)
+				.animate({top:'0px', left:'0px'}, 250)
+				.animate({left:'-100px', top:'-200px'}, 250)
+				.animate({left:'-200px', top:'0px'}, 250)
+				.animate({top:'0px', left:'0px'}, 250)
+	}    
+
+
 	function chooseFighterById(_id) {
 		for (var i=0; i < diputados.length; i++) {
 			if(diputados[i].id === _id) {
@@ -92,53 +125,67 @@ $(document).ready(function(){
 		}
 	})
 
-	function fight() {
-		if(canFight()) {
-			flash()
-			$.address.path('/fight/'+fighters[0].id+'/'+fighters[1].id)
+	function fightfetchdata(){
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
-				
 				for (i=0;i<2;i++){	
 					var info_container = $('#info'+i)
 					console.log(i)
 					info_container.empty()
+					info_container.append('<div>Puntuación:<span>' + data[i].puntuacion + '</span></div>')
+					info_container.append('<div>Intervenciones:<span>' + data[i].intervenciones + '</span></div>')
+					info_container.append('<div>Palabras:<span>' + data[i].palabras + '</span></div>')					
+					
 					for (key in data[i]) {
 						if (key.indexOf('p_', 0) === 0) {
 							info_container.append('<div>'+key.substring(2, 3).toUpperCase()+key.substring(3)+': <span>'+data[i][key]+'</span></div>')
 						}
-					}
+					}												
 				}
-											
-			});
-		}
-		// var offset = $('#fighter0 img').offset();
-		$('#fighter0 img')
-			.animate({left:'100px', top:'-200px'}, 250)
-			.animate({left:'200px', top:'0px'}, 250)
-			.animate({left:'0px'}, 250)
-			.animate({left:'200px'}, 250)
-			.animate({left:'100px', top: '-50px'}, 250)
-			.animate({left:'0px', top: '0px'}, 250)
-			.animate({left:'100px', top:'-200px'}, 250)
-			.animate({left:'200px', top:'0px'}, 250)
-			.animate({left:'0px', top: '0px'}, 250)
-			
-		$('#fighter1 img')
-			.animate({left:'-100px', top:'-200px'}, 250)
-			.animate({left:'-200px', top:'0px'}, 250)
-			.animate({left:'0px', top:'-50px'}, 125)
-			.animate({left:'0px', top:'0px'}, 125)
-			.animate({top:'-100px'}, 250)
-			.animate({top:'0px', left:'0px'}, 250)
-			.animate({left:'-100px', top:'-200px'}, 250)
-			.animate({left:'-200px', top:'0px'}, 250)
-			.animate({top:'0px', left:'0px'}, 250)
-		
-		//score
-
-		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
+					
+				if (data[0].puntuacion > data[1].puntuacion)
+				{
+					punchAttackLeftToRight()
+					winner=$('#fighter0')
+					loser=$('#fighter1')
+				}
+				else{
+					punchAttackRightToLeft()				
+					winner=$('#fighter1')
+					loser=$('#fighter0')					
+				}					
 				
+				setTimeout(function(){
+					winner.css('background-color','yellow')
+					winner.append('<img class=winner src=/img/winner.png>')	
+					for (i=0;i<2;i++){	
+						var info_container = $('#info'+i)
+						info_container.show('slow')
+					}										
+				},3000);
+
+			});
+	}
+
+	function fight() {
+		for (i=0;i<2;i++){	
+				var info_container = $('#info'+i)
+				info_container.hide()
+		}
+		
+		if(canFight()) {
+			flash()
+			setTimeout(function(){
+				animatefight()				
+			},2000);	
+		}
+		else{
+			alert('Imposible comenzar la lucha!')
+		}
+			
+		//score
+		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
+
 		return false;
 	}
 
@@ -204,7 +251,7 @@ $(document).ready(function(){
 	})
 
 	function talk(str){
-		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
+		//$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
 	}
 	
 	function loadParties() {
@@ -265,7 +312,7 @@ $(document).ready(function(){
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
  		$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
-		talk(diputados[i].nombre + ' al ring!')
+		talk('luchador diputado, ' + diputados[i].nombre.split(',')[1] + ', al rinj!')
 
 		type = type + 1
 		if (type >= types.length) { type = 0 }
@@ -285,6 +332,12 @@ $(document).ready(function(){
 			$('#autocomplete').val('')
 			loadImages()
 		});
+		
+ 		$('#info0').hide()
+ 		$('#info0').empty()
+ 		$('#info1').hide()
+ 		$('#info1').empty()
+		
 		return false
 	}
 
