@@ -157,7 +157,7 @@ $(document).ready(function(){
 				}
 					
 				//who is the winner	
-				if (data[0].puntuacion > data[1].puntuacion)
+				if (parseInt(data[0].puntuacion,10) > parseInt(data[1].puntuacion,10))
 				{
 					punchAttackLeftToRight(showresult)
 					winner=$('#fighter0')
@@ -176,6 +176,7 @@ $(document).ready(function(){
 
 	function fight() {
 		cleanInterface()
+		$.address.path('/fight/'+fighters[0].id+'/'+fighters[1].id)
 				
 		if(canFight()) {
 			flash(animatefight)
