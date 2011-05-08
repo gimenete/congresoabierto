@@ -106,15 +106,12 @@ background-size: cover;
 
 header { height: 154px; }
 header h1 { font-size: 30px; }
-<<<<<<< HEAD
 #container .fighter { width: 400px;  height: auto; position: relative; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
-=======
 #container #main { position: relative; }
 #container .fighter { width: 400px;  height: auto; }
 #container #vs {  width: 25px; height: auto; margin:320px 20px 20px 20px; }
-#container #versus { position:absolute; top: 310px; left: 367px; height: 149px; width: 226px; z-index: 999;}
->>>>>>> 6b4f07d9bc354ce0efbec7c222db9deb016a8a38
+#container #versus { position:absolute; top: 310px; left: 368px; height: 149px; width: 226px; z-index: 999;}
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
 #container #select_fighter { width: 95%; padding: 20px 0;}
