@@ -26,3 +26,25 @@ function multi_punch1(){
 	punch3();
 	$("#fighter1 .avatar").jrumble({ rumbleEvent: 'constant'});
 }
+
+function punchAttact(){
+	var punch = $("<img src='/img/punch.gif' class='punch1'/>");
+	//var punch1 = $("<img src='/img/punch.gif' class='punch2'/>");
+	//var punch2 = $("<img src='/img/punch.gif' class='punch3'/>");
+	
+	punch.appendTo('#fighter0');
+	punch.css("left","150px").css("top","200px").css("opacity","0.0");
+	punch.animate({opacity: 1}, 50)
+		 .animate({left: '700px', top: "100px"}, 400)
+		 .animate({opacity: 0.0}, 50)
+		 
+		 .animate({left: "150px", top: "220px"}, 1)
+		 .animate({opacity: 1}, 50)
+		 .animate({left: '700px', top: "220px"}, 400)
+		 .animate({opacity: 0.0}, 50)
+		 
+		 .animate({left: "150px", top: "240px"}, 1)
+		 .animate({opacity: 1}, 50)
+		 .animate({left: '700px', top: "340px"}, 400)
+		 .animate({opacity: 0.0}, 50)
+}
