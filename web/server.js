@@ -32,8 +32,15 @@ app.get('/diputados', function(req, res) {
 	redis.zrange('diputados', 0, -1, function(err, ids) {
 		console.log('hay '+ids.length+' diputados')
 		join(ids, 'diputado:', function(diputados) {
+			
 			res.render('diputados.ejs', { title: 'Hello world', diputados:diputados })
 		})
+	})
+});
+
+app.get('/diputado/:id', function(req, res) {
+	redis.hgetall('diputado:'+req.params.id, function(err, diputado) {
+		res.send(JSON.stringify(diputado))
 	})
 });
 
