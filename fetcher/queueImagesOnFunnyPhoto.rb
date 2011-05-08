@@ -119,7 +119,7 @@ if (ARGV[0])
 end
 
 process_template("hulk")
-process_template("coal")
+#process_template("coal")
 process_template("golum")
 process_template("avatar")
 process_template("rambo")
@@ -129,6 +129,8 @@ process_template("goalkeeper")
 process_template("zeus")
 process_template("soldier")
 process_template("superman")
+process_template("terminator")
+process_template("simpson")
 
   
   
