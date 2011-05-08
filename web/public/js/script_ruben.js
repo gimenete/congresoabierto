@@ -2,23 +2,22 @@ var fight_punchStart;
 var fight_punchEnd;
 var fight_style_sufix;
 
-function punchAttackLeftToRight(){
+function punchAttackLeftToRight(callback){
 	fight_punchStart = "150px";
 	fight_punchEnd = "600px";
 	fight_style_sufix = "_right";
-	punchAttact();
+	punchAttact(callback);
 }
 
-function punchAttackRightToLeft(){
+function punchAttackRightToLeft(callback){
 	fight_punchStart = "600px";
 	fight_punchEnd = "150px";
 	fight_style_sufix = "_left";
-	punchAttact();
+	punchAttact(callback);
 }
 
 //3 punches
-function punchAttact(){
-	
+function punchAttact(callback){
 	var punch = $("<img src='/img/punch.gif' class='punch punch" + fight_style_sufix + "'/>");
 	
 	punch.appendTo('#fighter0');
@@ -30,7 +29,7 @@ function punchAttact(){
 		 
 		 .animate({left: fight_punchStart, top: "240px"}, 1)
 		 .animate({left: fight_punchEnd, top: "340px"}, 400)
-		 .animate({opacity: 0.0},1);
+		 .animate({opacity: 0.0},1, callback);
 }
 
 
