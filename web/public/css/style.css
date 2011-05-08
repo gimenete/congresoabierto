@@ -85,7 +85,7 @@ a:hover { color: #036; }
 .left                                   {float: left;}
 .clear 									{ clear:both; }
 .right                                  { float: right;}
-.dummyborder            { background-image:url(/img/background-transp.png); background-repeat: repeat; z-index: 1; position: relative; }
+.dummyborder            { background-image:url(/img/background-transp.png); background-repeat: repeat; position: relative; }
 .default_margin { margin: 20px; }
 
 html {
