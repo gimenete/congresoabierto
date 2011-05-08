@@ -122,6 +122,10 @@ $(document).ready(function(){
 		}
 	}
 	
+	function talk(str){
+		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
+	}
+	
 	function loadImages() {
 		var slides_cointainer = $('#slides_cointainer')
 		for (var i=0; i < diputados.length; i++) {
@@ -161,6 +165,8 @@ $(document).ready(function(){
 		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/hulk/'+diputados[i].id+'.jpg')
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
 
+		talk('diputado o diputada ' + diputados[i].nombre + '... a darse de leches!')
+				
 		var enabled = canFight()
 		if(enabled) {
 			$('#fightbutton').show();
