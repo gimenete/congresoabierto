@@ -57,6 +57,8 @@ $(document).ready(function(){
 		var info_container = $('#info'+i)
 		info_container.hide('slow')
   }	
+  
+  $('.winner').hide()
 
 });
 
@@ -75,27 +77,27 @@ $(document).ready(function(){
     
 	function animatefight(){
 			// var offset = $('#fighter0 img').offset();
-			$('#fighter0 img')
-				.animate({left:'100px', top:'-200px'}, 250)
-				.animate({left:'200px', top:'0px'}, 250)
-				.animate({left:'0px'}, 250)
-				.animate({left:'200px'}, 250)
-				.animate({left:'100px', top: '-50px'}, 250)
-				.animate({left:'0px', top: '0px'}, 250)
-				.animate({left:'100px', top:'-200px'}, 250)
-				.animate({left:'200px', top:'0px'}, 250)
-				.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
+		$('#fighter0 img')
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px'}, 250)
+			.animate({left:'200px'}, 250)
+			.animate({left:'100px', top: '-50px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
 
-			$('#fighter1 img')
-				.animate({left:'-100px', top:'-200px'}, 250)
-				.animate({left:'-200px', top:'0px'}, 250)
-				.animate({left:'0px', top:'-50px'}, 125)
-				.animate({left:'0px', top:'0px'}, 125)
-				.animate({top:'-100px'}, 250)
-				.animate({top:'0px', left:'0px'}, 250)
-				.animate({left:'-100px', top:'-200px'}, 250)
-				.animate({left:'-200px', top:'0px'}, 250)
-				.animate({top:'0px', left:'0px'}, 250)
+		$('#fighter1 img')
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({left:'0px', top:'-50px'}, 125)
+			.animate({left:'0px', top:'0px'}, 125)
+			.animate({top:'-100px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
 	}    
 
 
@@ -125,6 +127,7 @@ $(document).ready(function(){
 		}
 	})
 
+	//get data, print data, show winner
 	function fightfetchdata(){
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
@@ -143,6 +146,7 @@ $(document).ready(function(){
 					}												
 				}
 					
+				//who is the winner	
 				if (data[0].puntuacion > data[1].puntuacion)
 				{
 					punchAttackLeftToRight()
@@ -157,14 +161,25 @@ $(document).ready(function(){
 				
 				setTimeout(function(){
 					winner.css('background-color','yellow')
-					winner.append('<img class=winner src=/img/winner.png>')	
-					for (i=0;i<2;i++){	
-						var info_container = $('#info'+i)
-						info_container.show('slow')
-					}										
+					winner.find('.winner').show('slow')
+					showpanels()
 				},3000);
 
 			});
+	}
+	
+	function showpanels(){
+		for (i=0;i<2;i++){	
+			var info_container = $('#info'+i)
+			info_container.show('slow')
+		}												
+	}
+	
+	function hidepanels(){
+		for (i=0;i<2;i++){	
+			var info_container = $('#info'+i)
+			info_container.hide('slow')
+		}												
 	}
 
 	function fight() {
@@ -308,7 +323,7 @@ $(document).ready(function(){
 
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' .avatar img.avatar').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
  		$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
