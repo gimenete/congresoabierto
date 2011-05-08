@@ -57,7 +57,7 @@ $(document).ready(function(){
 	var fighter;
 	var fighters = [];
 	var type = 0
-	var types = ['hulk', 'coal', 'golum', 'avatar', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman']
+	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator','simpson','pirateofthecaribbean','ilikemoney']
 
 
 	function flash() {
@@ -68,8 +68,21 @@ $(document).ready(function(){
 	function fight() {
 		if(canFight()) {
 			flash()
+//			$.getJSON('/fight/1/4', function(data) {
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
+				
+				for (i=0;i<2;i++){	
+					var info_container = $('#info'+i)
+					console.log(i)
+					info_container.empty()
+					for (key in data[i]) {
+						if (key.indexOf('p_', 0) === 0) {
+							info_container.append('<div>'+key.substring(2, 3).toUpperCase()+key.substring(3)+': <span>'+data[i][key]+'</span></div>')
+						}
+					}
+				}
+											
 			});
 		}
 		// var offset = $('#fighter0 img').offset();
@@ -95,7 +108,9 @@ $(document).ready(function(){
 			.animate({left:'-200px', top:'0px'}, 250)
 			.animate({top:'0px', left:'0px'}, 250)
 		
-		talk('menuda somanta palos le ha dado diputada 1 a diputada 2')
+		//score
+
+		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
 				
 		return false;
 	}
@@ -214,15 +229,15 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-		
 		console.log('choosen = '+i)
 		// for (var i=0; i < diputados.length; i++) {
 		// if(diputados[i].id === id ) {
 
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+ 		$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
 		talk(diputados[i].nombre + ' al ring!')
 
@@ -231,6 +246,8 @@ $(document).ready(function(){
 		console.log(type)
 
 		var enabled = canFight()
+		console.log('enabled = '+enabled)
+		
 		if(enabled) {
 			$('#fightbutton').show();
 		} else {
