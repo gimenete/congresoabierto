@@ -222,7 +222,9 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
 		max-height: 300px;
 	}
 
-
+	img.avatar {
+		cursor: pointer
+	}
 
 
 
