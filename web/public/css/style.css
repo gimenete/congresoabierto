@@ -107,7 +107,8 @@ background-size: cover;
 header { height: 154px; }
 header h1 { font-size: 30px; }
 #container .fighter { width: 400px;  height: auto; }
-#container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
+#container #vs {  width: 25px; height: auto; margin:320px 20px 20px 20px; }
+#container #versus { position:absolute; top: 410px; left: 470px; height: 149px; width: 226px; z-index: 999;}
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
 #container #select_fighter { width: 95%; padding: 20px 0;}
