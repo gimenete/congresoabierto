@@ -242,11 +242,10 @@ $(document).ready(function(){
 		var punch = $("<img src='/img/punch.gif' class='punch1'/>");
 		punch.appendTo('#fighter0');
 		punch.css("left","200px").css("top","300px").css("opacity","0.0");
-		punch
-			.animate({opacity: 1}, {queue: false, duration: 200})
-			.animate({left: '700px', top: '100px'}, {queue: false, duration: 600})
-			.animate({opacity: 1}, 300)
-			.animate({opacity: 0.0}, 100);
+		punch.animate({opacity: 1}, {queue: false, duration: 200})
+			 .animate({left: '700px', top: '100px'}, {queue: false, duration: 600})
+			 .animate({opacity: 1}, 300)
+			 .animate({opacity: 0.0}, 100);
 	}
 
 
