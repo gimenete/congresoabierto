@@ -183,6 +183,8 @@ $(document).ready(function(){
 	}
 
 	function fight() {
+		cleanInterface()
+		
 		for (i=0;i<2;i++){	
 				var info_container = $('#info'+i)
 				info_container.hide()
@@ -241,6 +243,7 @@ $(document).ready(function(){
 	}
 	
 	$('#autocomplete').keyup(function() {
+		$('#parties select').val('')
 		var slides_cointainer = $('#slides_cointainer')
 		slides_cointainer.empty();
 		var text = clean($('#autocomplete').val())
@@ -317,10 +320,6 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-		console.log('choosen = '+i)
-		// for (var i=0; i < diputados.length; i++) {
-		// if(diputados[i].id === id ) {
-
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
 		$('#fighter'+fighter+' .avatar img.avatar').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
@@ -342,18 +341,22 @@ $(document).ready(function(){
 			$('#fightbutton').hide();
 		}
 
+		cleanInterface()
+		
+		return false
+	}
+	
+	function cleanInterface() {
 		$('#select_fighter').slideUp(function() {
-			console.log('close')
-			$('#autocomplete').val('')
 			loadImages()
 		});
+		$('#autocomplete').val('')
+		$('#parties select').val('')
 		
  		$('#info0').hide()
  		$('#info0').empty()
  		$('#info1').hide()
  		$('#info1').empty()
-		
-		return false
 	}
 
 
