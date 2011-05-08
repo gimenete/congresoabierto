@@ -40,6 +40,7 @@ def fetch_and_save_document (url, name)
 end
 
 def normalize_name (name)  
+  name=name.split(",")[1] + "-"+ name.split(",")[0]
   name=sanitize(name)
   name=ParseSignos(name)
   name=QuitaAcentos(name)
@@ -116,16 +117,17 @@ while iddiputado < upperlimit do
     #p foto[:src]
     fotourl=@baseurl + foto[:src]
     p fotourl 
+        
+    #save to redis.    
+    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
+    redis.zadd "diputados", 0 , iddiputado  
+    redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
     
     iddiputado=iddiputado+1   
     p iddiputado
 
     p "-----------------------" 
     
-    #save to redis.    
-    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
-    redis.zadd "diputados", 0 , iddiputado  
-    redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
   else
     p "Diputado not found at id=#{iddiputado}"
   end

@@ -118,17 +118,33 @@ if (ARGV[0])
   p "using custom path: #{ARGV[0]}"
 end
 
-process_template("hulk")
-process_template("coal")
-process_template("golum")
-process_template("avatar")
-process_template("rambo")
-process_template("yoda")
-process_template("boxer")
-process_template("goalkeeper")
-process_template("zeus")
-process_template("soldier")
-process_template("superman")
+
+if (ARGV[1]=="2")
+  process_template("yoda")
+  process_template("boxer")
+  process_template("goalkeeper")
+  process_template("zeus")
+elsif (ARGV[1]=="3")
+  process_template("soldier")
+  process_template("superman")
+  process_template("terminator")
+  process_template("simpson")  
+else
+  process_template("hulk")
+  #process_template("coal")
+  process_template("golum")
+  process_template("avatar")
+  process_template("rambo")
+  process_template("yoda")
+  process_template("boxer")
+  process_template("goalkeeper")
+  process_template("zeus")
+  process_template("soldier")
+  process_template("superman")
+  process_template("terminator")
+  process_template("simpson")
+end
+
 
   
   
