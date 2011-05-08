@@ -147,9 +147,18 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
 .control { display:block; width:39px; height:142px; text-indent:-10000px; position:absolute; cursor: pointer; }
 #leftControl { top:0; left:0; background:transparent url(/img/control_left.png) no-repeat 0 0; }
 #rightControl { top:0; right:0; background:transparent url(/img/control_right.png) no-repeat 0 0; }
+a.fightbutton {
+    display:inline-block;
+    background: url(/img/fight.png) 0 0 no-repeat;
+    height:65px; width:235px;
+    border:none;
+    z-index: 999999;
+    margin: 23px -45px 0 0;
+    left: 101px;
 
+}
 
-  /* Fight button */
+  /* Fight button
   a.fightbutton {
     display:inline-block;
     height:23px;
@@ -186,7 +195,9 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
   a.fightbutton.mousedown{background-position:0 -60px; }
   a.fightbutton.mousedown>span{background-position:100% -60px; }
 
-  /* with icon */
+  */
+
+  /* with icon
   a.btn-download .icon {
     float:left;
     margin-left:-4px;
@@ -196,7 +207,7 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
   }
   a.btn-download .icon {background-position:-40px 0;}
   a.btn-download:hover .icon, a.btn-download:focus .icon {background-position:-40px -25px;}
-
+*/
 	.info span {
 		display: block;
 		float:right;
@@ -210,10 +221,10 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
 		display:none;
 		position:absolute;
 		z-index: 10000;
-		
+
 		left:145px;
 	}
-	
+
 	.avatarimg{
 		width:300px;
 		margin:0;
