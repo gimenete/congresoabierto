@@ -55,6 +55,8 @@ $(document).ready(function(){
 
 	var fighter;
 	var fighters = [];
+	var type = 0
+	var types = ['hulk', 'coal', 'golum', 'avatar', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman']
 
 	function flash() {
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
@@ -122,8 +124,12 @@ $(document).ready(function(){
 
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/hulk/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+
+		type = type + 1
+		if (type >= types.length) { type = 0 }
+		console.log(type)
 
 		var enabled = canFight()
 		if(enabled) {
