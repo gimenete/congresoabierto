@@ -85,10 +85,23 @@ a:hover { color: #036; }
 .left                                   {float: left;}
 .clear 									{ clear:both; }
 .right                                  { float: right;}
-.dummyborder            { border: 1px black solid; }
+.dummyborder            { background-image:url(/img/background-transp.png); background-repeat: repeat; z-index: 1; position: relative; }
 .default_margin { margin: 20px; }
 
+html {
+-webkit-background-size: cover;
+background-image: url(/img/background.jpg);
+background-repeat-x: no-repeat;
+background-repeat-y: no-repeat;
+background-attachment: fixed;
+background-position-x: 50%;
+background-position-y: 50%;
+background-origin: initial;
+background-clip: initial;
+background-color: initial;
+background-size: cover;
 
+}
 #container { width:950px; margin:0px auto; }
 
 header { height: 154px; }
@@ -98,8 +111,9 @@ header h1 { font-size: 30px; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
-#container #select_fighter { width: 95%; padding: 20px 0; background-color: #252525;}
-
+#container #select_fighter { width: 95%; padding: 20px 0;}
+#container .ficha { background-color: white; opacity: 0.8; top: 500px; height: 500px; width: 400px; position:absolute; }
+#container h2 { }
 #container #select_fighter .mini_fighter { margin-left: 20px; width:50px;height:80px;}
 #container #select_fighter .mini_fighter a { height: auto }
 
