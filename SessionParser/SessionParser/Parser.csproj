@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Diputado.cs" />
+    <Compile Include="DiputadosToNodejs.cs" />
     <Compile Include="Intervencion.cs" />
     <Compile Include="IntervencionCollection.cs" />
     <Compile Include="IntervencionParser.cs" />
