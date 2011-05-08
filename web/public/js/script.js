@@ -152,12 +152,56 @@ $(document).ready(function(){
 		}
 	}
 	
+	function clean(s) {
+		var r=s.toLowerCase();
+		r = r.replace(new RegExp(/\s/g),"");
+		r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+		r = r.replace(new RegExp(/æ/g),"ae");
+		r = r.replace(new RegExp(/ç/g),"c");
+		r = r.replace(new RegExp(/[èéêë]/g),"e");
+		r = r.replace(new RegExp(/[ìíîï]/g),"i");
+		r = r.replace(new RegExp(/ñ/g),"n");                
+		r = r.replace(new RegExp(/[òóôõö]/g),"o");
+		r = r.replace(new RegExp(/œ/g),"oe");
+		r = r.replace(new RegExp(/[ùúûü]/g),"u");
+		r = r.replace(new RegExp(/[ýÿ]/g),"y");
+		r = r.replace(new RegExp(/\W/g),"");
+		return r;
+	}
+	
+	$('#autocomplete').keyup(function() {
+		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		var text = clean($('#autocomplete').val())
+		for (var i=0; i < diputados.length; i++) {
+			if (clean(diputados[i].nombre).indexOf(text, 0) > 0){
+					var img = $('<img src="'+diputados[i].foto+'" />')
+					var div = $('<div class="mini_fighter left"></div>')
+					div.append(img)
+					slides_cointainer.append(div)
+
+					var func = function(k) {
+						return function(){
+							chooseFighter(k)
+						}
+					}(i)
+					div.click(func)
+			}
+		}
+		
+		if(slides_cointainer.children().size() === 0) {
+			loadImages();
+		}
+	})
+
 	function talk(str){
 		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
 	}
 	
 	function loadImages() {
 		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		
 		for (var i=0; i < diputados.length; i++) {
 			var img = $('<img src="'+diputados[i].foto+'" />')
 			var div = $('<div class="mini_fighter left"></div>')
@@ -186,32 +230,47 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-			console.log('choosen = '+i)
-			// for (var i=0; i < diputados.length; i++) {
-			// if(diputados[i].id === id ) {
-
-			fighters[fighter] = diputados[i]
-			// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-			$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
-			$('#fighter'+fighter+' h2').text(diputados[i].nombre)
-			$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
-
-			var nombre=diputados[i].nombre.split(',')[1]
-			talk('luchador diputado, ' + nombre + ', por favor suba al rinj')				
 		
-			type = type + 1
-			if (type >= types.length) { type = 0 }
-			console.log(type)
+		console.log('choosen = '+i)
+		// for (var i=0; i < diputados.length; i++) {
+		// if(diputados[i].id === id ) {
 
-			var enabled = canFight()
-			if(enabled) {
-				$('#fightbutton').show();
-			} else {
-				$('#fightbutton').hide();
-			}
+		fighters[fighter] = diputados[i]
+		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
+		$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+ 		$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
-			$('#select_fighter').slideUp();
-			return false
+		talk(diputados[i].nombre + ' al ring!')
+
+		type = type + 1
+		if (type >= types.length) { type = 0 }
+		console.log(type)
+
+		var enabled = canFight()
+		if(enabled) {
+			$('#fightbutton').show();
+		} else {
+			$('#fightbutton').hide();
+		}
+
+		$('#select_fighter').slideUp(function() {
+			console.log('close')
+			$('#autocomplete').val('')
+			loadImages()
+		});
+		return false
+	}
+
+	function punch1(){
+		var punch = $("<img src='/img/punch.gif' class='punch1'/>");
+		punch.appendTo('#fighter0');
+		punch.css("left","200px").css("top","300px").css("opacity","0.0");
+		punch
+			.animate({opacity: 1}, {queue: false, duration: 200})
+			.animate({left: '700px', top: '100px'}, {queue: false, duration: 600})
+			.animate({opacity: 1}, 300)
+			.animate({opacity: 0.0}, 100);
 	}
 
 
