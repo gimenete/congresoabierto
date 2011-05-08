@@ -57,7 +57,7 @@ $(document).ready(function(){
 	var fighter;
 	var fighters = [];
 	var type = 0
-	var types = ['hulk', 'coal', 'golum', 'avatar', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman']
+	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator']
 
 
 	function flash() {
@@ -68,8 +68,12 @@ $(document).ready(function(){
 	function fight() {
 		if(canFight()) {
 			flash()
+//			$.getJSON('/fight/1/4', function(data) {
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
+				alert(data[0].nombre)
+				alert(data[0].puntuacion)
+				$('#score0').html('aqui la puntacion..como?' + data[0].foto)
 			});
 		}
 		// var offset = $('#fighter0 img').offset();
@@ -95,7 +99,9 @@ $(document).ready(function(){
 			.animate({left:'-200px', top:'0px'}, 250)
 			.animate({top:'0px', left:'0px'}, 250)
 		
-		talk('menuda somanta palos le ha dado diputada 1 a diputada 2')
+		//score
+
+		//talk('menuda somanta palos le ha dao diputada 1 a diputada 2')
 				
 		return false;
 	}
@@ -176,10 +182,12 @@ $(document).ready(function(){
 
 			fighters[fighter] = diputados[i]
 			// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-			$('#fighter'+fighter+' .avatar img').attr('src', '/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+			$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
 			$('#fighter'+fighter+' h2').text(diputados[i].nombre)
+			$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
-			talk(diputados[i].nombre + ' al ring!')
+			var nombre=diputados[i].nombre.split(',')[1]
+			talk('luchador diputado, ' + nombre + ', por favor suba al rinj')				
 		
 			type = type + 1
 			if (type >= types.length) { type = 0 }
