@@ -361,6 +361,7 @@ $(document).ready(function(){
   		$('.winner').hide()
 
 		hidepanels()
+		$('#fightbutton').hide();
 	}
 
 
