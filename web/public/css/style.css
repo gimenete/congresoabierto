@@ -112,8 +112,8 @@ header h4 { width: 400px; color: #FFF; font-size: 15px; margin: 7px 40px 0 0}
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container #main { position: relative; }
 #container .fighter { width: 400px;  height: auto; }
-#container #main h2 { margin: 10px 10px 10px 20px; font-size: 14px;  }
-#container #main h3 { margin: 10px 10px 10px 20px; font-size: 12px;  }
+#container #main h2 { margin-top: 10px; font-size: 14px; font-family: 'Permanent Marker', arial, serif; color: red; text-align: center; }
+#container #main h3 { margin: 10px 10px 0 20px; font-size: 12px; font-family: 'Permanent Marker', arial, serif; color: red; text-align: center; }
 #container #vs {  width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container #versus { position:absolute; top: 175px; left: 368px; height: 149px; width: 226px; z-index: 999;}
 #container .avatar { margin: 25px; }
