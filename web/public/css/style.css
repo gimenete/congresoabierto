@@ -106,7 +106,7 @@ background-size: cover;
 
 header { height: 154px; }
 header h1 { font-size: 30px; }
-#container .fighter { width: 400px;  height: auto; }
+#container .fighter { width: 400px;  height: auto; position: relative; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container .avatar { margin: 25px; }
 #container .fightbutton { position: relative; }
