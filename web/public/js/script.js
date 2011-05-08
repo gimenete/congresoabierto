@@ -73,7 +73,17 @@ $(document).ready(function(){
 				console.log(data)
 				alert(data[0].nombre)
 				alert(data[0].puntuacion)
-				$('#score0').html('aqui la puntacion..como?' + data[0].foto)
+				
+				for (int i=0;i<2;i++){}	
+					$('#score'+i).html(data[i].puntuacion)				
+					$('#intervenciones'+i).html(data[i].puntuacion)
+					$('#palabras'+i).html(data[i]].palabras)				
+					$('#sanidad'+i).html(data[i].p_sanidad)
+					$('#terrorismo'+i).html(data[i].p_terrorismo)					
+					$('#clasepolitica'+i).html(data[i].p_clasepolitica)					
+					$('#pensiones'+i).html(data[i].p_pensiones)					
+					$('#medioambiente'+i).html(data[i].p_medioambiente)																				
+				}								
 			});
 		}
 		// var offset = $('#fighter0 img').offset();
