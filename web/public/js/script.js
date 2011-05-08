@@ -226,6 +226,7 @@ $(document).ready(function(){
 	}
 	
 	$('#autocomplete').keyup(function() {
+		$('#parties select').val('')
 		var slides_cointainer = $('#slides_cointainer')
 		slides_cointainer.empty();
 		var text = clean($('#autocomplete').val())
@@ -302,9 +303,6 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-		console.log('choosen = '+i)
-		// for (var i=0; i < diputados.length; i++) {
-		// if(diputados[i].id === id ) {
 
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
@@ -328,8 +326,8 @@ $(document).ready(function(){
 		}
 
 		$('#select_fighter').slideUp(function() {
-			console.log('close')
 			$('#autocomplete').val('')
+			$('#parties select').val('')
 			loadImages()
 		});
 		
