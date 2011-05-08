@@ -58,6 +58,7 @@ app.get('/avatars/:type/:name', function(req, res) {
 				if (err) {
 					res.send('default not found')
 				} else {
+					res.header('Content-type', 'image/png')
 					res.send(data)
 				}
 			})
