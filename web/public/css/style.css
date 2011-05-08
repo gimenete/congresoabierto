@@ -106,10 +106,14 @@ background-size: cover;
 
 header { height: 154px; }
 header h1 { font-size: 30px; }
+header h2 { color: white; font-size: 20px; margin: 64px 33px 0 0;}
+header h4 { width: 400px; color: #FFF; font-size: 15px; margin: 7px 40px 0 0}
 #container .fighter { width: 400px;  height: auto; position: relative; }
 #container #vs { width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container #main { position: relative; }
 #container .fighter { width: 400px;  height: auto; }
+#container #main h2 { margin: 10px 10px 10px 20px; font-size: 14px;  }
+#container #main h3 { margin: 10px 10px 10px 20px; font-size: 12px;  }
 #container #vs {  width: 25px; height: auto; margin:320px 20px 20px 20px; }
 #container #versus { position:absolute; top: 175px; left: 368px; height: 149px; width: 226px; z-index: 999;}
 #container .avatar { margin: 25px; }
@@ -119,7 +123,6 @@ header h1 { font-size: 30px; }
 #container #filtros #searchform { width: 50%; margin-bottom: 20px; }
 #container #filtros .partidos { width: 50%; }
 #container .ficha { background-color: white; opacity: 0.8; top: 500px; height: 500px; width: 400px; position:absolute; }
-#container h2 { }
 #container #select_fighter .mini_fighter { margin-left: 20px; width:130px;height:150px;}
 #container #select_fighter .mini_fighter a { height: auto }
 

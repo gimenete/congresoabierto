@@ -70,6 +70,7 @@ $(document).ready(function(){
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
 		return false
 	}
+
     
 	function animatefight(){
 			// var offset = $('#fighter0 img').offset();
@@ -96,6 +97,33 @@ $(document).ready(function(){
 				.animate({top:'0px', left:'0px'}, 250)
 	}
     
+
+	function chooseFighterById(_id) {
+		for (var i=0; i < diputados.length; i++) {
+			if(diputados[i].id === _id) {
+				chooseFighter(i)
+				console.log('choose fighter = '+i+', '+_id)
+			}
+		}
+	}
+	
+	$.address.change(function(event) {
+		var tokens = event.value.split('/')
+		if(tokens.length < 4)
+			return
+		var id1 = tokens[2]
+		if(fighters[0] === undefined || fighters[0].id !== id1) {
+			fighter = 0
+			chooseFighterById(id1)
+		}
+		
+		var id2 = event.value.split('/')[3]
+		if(fighters[1] === undefined || fighters[1].id !== id2) {
+			fighter = 1
+			chooseFighterById(id2)
+		}
+	})
+
 	function fightfetchdata(){
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
@@ -175,7 +203,7 @@ $(document).ready(function(){
 		}
 	}
 
-	function loadImagesByGroup(grupo){	
+	function loadImagesByGroup(grupo){
 		
 		applyStyleGroup(grupo)
 		
