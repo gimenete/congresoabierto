@@ -5,13 +5,7 @@
 require 'rubygems'
 require 'open-uri'
 require 'hpricot'
-#require 'redis'
 require 'iconv'
-
-def img_existe (path)
-  path=@outputbasepath + name
-  existe=File.exist?(path)
-end
 
 def logerror (text)
    File.open(@outputbasepath + "error.txt", 'a') do |f|
@@ -61,7 +55,6 @@ def process_template(template)
       p "image #{imagefile} exists. skipping..."
       iddiputado=iddiputado+1  
     else
-
       url = @baseurl + "/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&idDiputado=#{iddiputado}"
 
       p "fetching images  for id=#{iddiputado}..."
@@ -126,6 +119,10 @@ process_template("avatar")
 process_template("rambo")
 process_template("yoda")
 process_template("boxer")
+process_template("goalkeeper")
+process_template("zeus")
+process_template("soldier")
+process_template("superman")
 
   
   
