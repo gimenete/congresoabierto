@@ -32,12 +32,12 @@ namespace SersionParserTests
         //
         #endregion
 
-        private SessionParser _parser;
+        private SesionParser _parser;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _parser = new SessionParser();
+            _parser = new SesionParser();
         }
 
         [TestMethod]

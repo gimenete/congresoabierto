@@ -14,7 +14,7 @@ namespace SersionParserTests
         public void Obtener_intervenciones_en_bruto()
         {
             string rawData = "foo<br>el señor XXX: asdf<br>asdf fin<br>la señora YYY: fin2";
-            SessionParser parser = new SessionParser();
+            SesionParser parser = new SesionParser();
 
             IntervencionCollection intervenciones = parser.ParsearIntervenciones(rawData);
 
@@ -27,6 +27,16 @@ namespace SersionParserTests
             Assert.AreEqual("fin2", intervenciones[1].Texto);
         }
 
+        [TestMethod]
+        public void Ignorar_intervenciones_del_presidente()
+        {
+            string rawData = "foo<br>el señor presidente: asdf<br>asdf fin<br>la señora YYY: fin2";
+            SesionParser parser = new SesionParser();
 
+            IntervencionCollection intervenciones = parser.ParsearIntervenciones(rawData);
+
+            Assert.AreEqual(1, intervenciones.Count);
+            Assert.AreEqual("yyy", intervenciones[0].NombreDiputado);
+        }
     }
 }

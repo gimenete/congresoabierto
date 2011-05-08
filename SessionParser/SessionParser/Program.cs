@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Parser
 {
@@ -10,27 +9,93 @@ namespace Parser
     {
         static void Main(string[] args)
         {
-            string rawSession = File.ReadAllText(args[0]);
-            SessionParser parser = new SessionParser();
+            if (args[0] == "sesion")
+            {
+                ParsearSesion(args);
+            }
+            else
+            {
+                ParsearDirectorioDeSesiones(args[1]);
+            }
+            Console.ReadKey();
+        }
+
+        private static void ParsearDirectorioDeSesiones(string path)
+        {
+            SesionParser parser = new SesionParser();
+            SesionCollection sesiones = new SesionCollection();
+            FileInfo[] infoFicheros = new DirectoryInfo(path).GetFiles();
+            foreach (FileInfo ficheroSesion in infoFicheros)
+            {
+                Console.WriteLine("Procesando " + ficheroSesion.FullName + "...");
+                sesiones.Add(parser.ParsearSesion(ficheroSesion.FullName));
+            }
+            Console.WriteLine("FIN DEL PROCESADO!!");
+
+            IList<Diputado> diputados = 
+                sesiones.GetDatosPorDiputados().OrderBy(x => x.Puntuacion).ToList();
+
+            StreamWriter writer = new StreamWriter(File.OpenWrite(@"D:\Temporal\diputados.txt"));
+
+            foreach (Diputado diputado in diputados)
+            {
+
+                Console.WriteLine(diputado.Nombre + " (" + diputado.Puntuacion + " ptos)");
+                Console.WriteLine("    Normalizado: " + diputado.NombreNormalizado);
+                Console.WriteLine("    Intervenciones: " + diputado.Intervenciones.Count);
+                Console.WriteLine("    Total palabras: " + diputado.Intervenciones.TotalPalabras);
+                Console.WriteLine("    Terminos......: ");
+                foreach (string termino in diputado.Intervenciones.PesoDeTerminos.Keys)
+                {
+                    Console.WriteLine(
+                        "        " + termino + " > " +
+                        diputado.Intervenciones.PesoDeTerminos[termino]);
+                }
+                Console.WriteLine();
+
+                writer.WriteLine(diputado.Nombre + " (" + diputado.Puntuacion + " ptos)");
+                writer.WriteLine("    Normalizado: " + diputado.NombreNormalizado);
+                writer.WriteLine("    Intervenciones: " + diputado.Intervenciones.Count);
+                writer.WriteLine("    Total palabras: " + diputado.Intervenciones.TotalPalabras);
+                writer.WriteLine("    Terminos......: ");
+                foreach (string termino in diputado.Intervenciones.PesoDeTerminos.Keys)
+                {
+                    writer.WriteLine(
+                        "        " + termino + " > " +
+                        diputado.Intervenciones.PesoDeTerminos[termino]);
+                }
+                writer.WriteLine();
+            }
+            writer.Flush();
+            writer.Close();
+        }
+
+        private static void ParsearSesion(string[] args)
+        {
+            string rawSession = File.ReadAllText(args[1]);
+            SesionParser parser = new SesionParser();
 
             IntervencionCollection intervenciones = parser.ParsearIntervenciones(rawSession);
 
-            /*foreach(Intervencion intervencion in intervenciones)
-            {
-                Console.WriteLine("#######################");
-                Console.WriteLine("Diputado: " + intervencion.NombreDiputado);
-                Console.WriteLine(intervencion.Texto);
-            }*/
             Console.WriteLine("Total intervenciones: " + intervenciones.Count);
             Console.WriteLine();
 
-            Dictionary<string, int> diputados = intervenciones.GetTotalIntervencionesPorDiputado();
-            foreach(string diputado in diputados.Keys)
+            IList<Diputado> diputados = intervenciones.GetDatosPorDiputados();
+            foreach (Diputado diputado in diputados)
             {
-                Console.WriteLine(diputado + " : " + diputados[diputado]);
+                Console.WriteLine(diputado.Nombre + " (" + diputado.Puntuacion + " ptos)");
+                Console.WriteLine("    Normalizado: " + diputado.NombreNormalizado);
+                Console.WriteLine("    Intervenciones: " + diputado.Intervenciones.Count);
+                Console.WriteLine("    Total palabras: " + diputado.Intervenciones.TotalPalabras);
+                Console.WriteLine("    Terminos......: ");
+                foreach (string termino in diputado.Intervenciones.PesoDeTerminos.Keys)
+                {
+                    Console.WriteLine(
+                        "        " + termino + " > " +
+                        diputado.Intervenciones.PesoDeTerminos[termino]);
+                }
+                Console.WriteLine();
             }
-
-            Console.ReadKey();
         }
     }
 }
