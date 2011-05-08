@@ -116,16 +116,17 @@ while iddiputado < upperlimit do
     #p foto[:src]
     fotourl=@baseurl + foto[:src]
     p fotourl 
+        
+    #save to redis.    
+    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
+    redis.zadd "diputados", 0 , iddiputado  
+    redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
     
     iddiputado=iddiputado+1   
     p iddiputado
 
     p "-----------------------" 
     
-    #save to redis.    
-    redis.hmset "diputado:#{iddiputado}","nombre", nombredip, "nombrenormalizado", nombrenormalizado, "diputadopor", diputadopor, "grupo", grupo, "grupobreve", grupobreve, "email", email, "www", www, "twitter", twitter, "foto", fotourl 
-    redis.zadd "diputados", 0 , iddiputado  
-    redis.hset "diputado:#{nombrenormalizado}", "id", iddiputado
   else
     p "Diputado not found at id=#{iddiputado}"
   end
