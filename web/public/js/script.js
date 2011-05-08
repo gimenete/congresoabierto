@@ -168,6 +168,8 @@ $(document).ready(function(){
 	}
 
 	function fight() {
+		cleanInterface()
+		
 		for (i=0;i<2;i++){	
 				var info_container = $('#info'+i)
 				info_container.hide()
@@ -303,7 +305,6 @@ $(document).ready(function(){
 	}
 
 	function chooseFighter(i) {
-
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
 		$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
@@ -325,18 +326,22 @@ $(document).ready(function(){
 			$('#fightbutton').hide();
 		}
 
+		cleanInterface()
+		
+		return false
+	}
+	
+	function cleanInterface() {
 		$('#select_fighter').slideUp(function() {
-			$('#autocomplete').val('')
-			$('#parties select').val('')
 			loadImages()
 		});
+		$('#autocomplete').val('')
+		$('#parties select').val('')
 		
  		$('#info0').hide()
  		$('#info0').empty()
  		$('#info1').hide()
  		$('#info1').empty()
-		
-		return false
 	}
 
 
