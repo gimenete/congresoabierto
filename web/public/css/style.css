@@ -100,7 +100,7 @@ header h1 { font-size: 30px; }
 #container .fightbutton { position: relative; }
 #container #select_fighter { width: 95%; padding: 20px 0; background-color: #252525;}
 
-#container #select_fighter .mini_fighter { margin-left: 20px; }
+#container #select_fighter .mini_fighter { margin-left: 20px; width:50px;height:80px;}
 #container #select_fighter .mini_fighter a { height: auto }
 
 #container .foot_col { height: 300px; width:30%; margin:14px;}

@@ -87,11 +87,47 @@ $(document).ready(function(){
 		
 		return false;
 	}
+		
+	function applyStyleGroup(group){
+		var slides_cointainer = $('#slides_cointainer')
+		if (group=='PP'){
+			slides_cointainer.css('background-color','blue')			
+		}
+		else if (group=='PSOE'){
+			slides_cointainer.css('background-color', 'red')			
+		}
+		else{
+			slides_cointainer.css('background-color', 'white')			
+		}
+	}
+
+	function loadImagesByGroup(grupo){	
+		
+		applyStyleGroup(grupo)
+		
+		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		for (var i=0; i < diputados.length; i++) {
+			if ((diputados[i].grupobreve==grupo) || (grupo=='')){
+					var img = $('<img src="'+diputados[i].foto+'" />')
+					var div = $('<div class="mini_fighter left"></div>')
+					div.append(img)
+					slides_cointainer.append(div)
+
+					var func = function(k) {
+						return function(){
+							chooseFighter(k)
+						}
+					}(i)
+					div.click(func)
+			}
+		}
+	}
 	
 	function loadImages() {
 		var slides_cointainer = $('#slides_cointainer')
 		for (var i=0; i < diputados.length; i++) {
-			var img = $('<img src="'+diputados[i].foto+'">')
+			var img = $('<img src="'+diputados[i].foto+'" />')
 			var div = $('<div class="mini_fighter left"></div>')
 			div.append(img)
 			slides_cointainer.append(div)
