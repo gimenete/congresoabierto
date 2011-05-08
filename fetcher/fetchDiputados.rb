@@ -40,6 +40,7 @@ def fetch_and_save_document (url, name)
 end
 
 def normalize_name (name)  
+  name=name.split(",")[1] + "-"+ name.split(",")[0]
   name=sanitize(name)
   name=ParseSignos(name)
   name=QuitaAcentos(name)
