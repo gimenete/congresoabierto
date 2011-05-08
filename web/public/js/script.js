@@ -67,13 +67,13 @@ $(document).ready(function(){
 	
 	$.address.change(function(event) {
 		var id1 = event.value.split('/')[2]
-		if(fighters[0] !== undefined && fighters[0].id !== id1) {
+		if(fighters[0] === undefined || fighters[0].id !== id1) {
 			fighter = 0
 			chooseFighter(id1)
 		}
 		
 		var id2 = event.value.split('/')[3]
-		if(fighters[1] !== undefined && fighters[1].id !== id2) {
+		if(fighters[1] === undefined || fighters[1].id !== id2) {
 			fighter = 1
 			chooseFighter(id2)
 		}
