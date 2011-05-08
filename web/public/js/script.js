@@ -1,4 +1,6 @@
 $(document).ready(function(){
+ loadImages()
+
   var currentPosition = 0;
   var slideWidth = 130;
   var slides = $('.mini_fighter');
@@ -48,7 +50,6 @@ $(document).ready(function(){
 	// Hide right arrow if position is last slide
     if(position==numberOfSlides-1){ $('#rightControl').hide() } else{ $('#rightControl').show() }
   }
-	loadImages()
 
 });
 
@@ -75,16 +76,24 @@ $(document).ready(function(){
 		$('#fighter0 img')
 			.animate({left:'100px', top:'-200px'}, 250)
 			.animate({left:'200px', top:'0px'}, 250)
-			.animate({left:'0px'}, 500)
-			.animate({left:'200px'}, 500)
-			.animate({left:'0px'}, 500);
+			.animate({left:'0px'}, 250)
+			.animate({left:'200px'}, 250)
+			.animate({left:'100px', top: '-50px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
 			
 		$('#fighter1 img')
 			.animate({left:'-100px', top:'-200px'}, 250)
 			.animate({left:'-200px', top:'0px'}, 250)
-			.animate({left:'0px'}, 500)
-			.animate({top:'-200px'}, 500)
-			.animate({top:'0px'}, 500);
+			.animate({left:'0px', top:'-50px'}, 125)
+			.animate({left:'0px', top:'0px'}, 125)
+			.animate({top:'-100px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
 		
 		talk('menuda somanta palos le ha dado diputada 1 a diputada 2')
 				
