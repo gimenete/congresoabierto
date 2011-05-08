@@ -129,6 +129,8 @@ header h4 { width: 400px; color: #333; font-size: 15px; margin: 10px; }
 #container #select_fighter .mini_fighter a { height: auto }
 
 #container .foot_col { height: 300px; width:30%; margin:14px;}
+#container .foot_col h3 { text-align: center; color: #333; font-size: 15px; margin: 10px;}
+#container .foot_col p { margin: 15px;}
 
 
 
