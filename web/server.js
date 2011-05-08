@@ -13,6 +13,13 @@ app.get('/', function(req, res){
 	redis.zrange('diputados', 0, -1, function(err, ids) {
 		console.log('hay '+ids.length+' diputados')
 		join(ids, 'diputado:', function(diputados) {
+			for (var i=0; i < diputados.length; i++) {
+				for (key in diputados[i]) {
+					if(key !== 'nombre' && key !== 'id' && key !== 'grupobreve' && key !== 'foto')
+						delete diputados[i][key]
+				}
+			}
+			
 			res.render('index.ejs', { title: 'Hello world', diputados:diputados })
 		})
 	})
