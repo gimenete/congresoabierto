@@ -132,8 +132,12 @@ elsif (ARGV[1]=="3")
   process_template("superman")
   process_template("terminator")
   process_template("simpson")  
-else
+elsif (ARGV[1]=="4")
+  process_template("darth vader")
+  process_template("pirate of the caribbean")
   process_template("iron man")
+  process_template("i like money")
+else
   process_template("hulk")
   #process_template("coal")
   process_template("golum")
