@@ -13,6 +13,15 @@ namespace Parser
             {
                 ParsearSesion(args);
             }
+            else if (args[0] == "node")
+            {
+                Console.WriteLine("Comenzando la creación del import.js...");
+                DiputadosToNodejs toNode = new DiputadosToNodejs();
+                toNode.GenerarFicheroNodejs(
+                    args[1], 
+                    @"D:\Desarrollo\Personal\CongresoAbierto\SessionParser\SessionParser\import.js");
+                Console.WriteLine("Finalizado!!! :)");
+            }
             else
             {
                 ParsearDirectorioDeSesiones(args[1]);
