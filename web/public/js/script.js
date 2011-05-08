@@ -136,6 +136,27 @@ $(document).ready(function(){
 		}
 	}
 	
+	$('#autocomplete').keyup(function() {
+		var slides_cointainer = $('#slides_cointainer')
+		slides_cointainer.empty();
+		var text = $('#autocomplete').val().toLowerCase()
+		for (var i=0; i < diputados.length; i++) {
+			if (diputados[i].nombre.toLowerCase().indexOf(text, 0) > 0){
+					var img = $('<img src="'+diputados[i].foto+'" />')
+					var div = $('<div class="mini_fighter left"></div>')
+					div.append(img)
+					slides_cointainer.append(div)
+
+					var func = function(k) {
+						return function(){
+							chooseFighter(k)
+						}
+					}(i)
+					div.click(func)
+			}
+		}
+	})
+
 	function talk(str){
 		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
 	}

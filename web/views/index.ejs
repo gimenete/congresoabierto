@@ -32,10 +32,15 @@
 
 		<div id="select_fighter" class="left dummyborder default_margin" style="display:none">
 		<div id="slideshow">
-			<p><input type="text" placeholder="Escribe el nombre de un diputado"></p>
-			<a href="javascript:void(0)" onclick="loadImagesByGroup('PP')">PP</a>
-			<a href="javascript:void(0)" onclick="loadImagesByGroup('PSOE')">PSOE</a>
-			<a href="javascript:void(0)" onclick="loadImagesByGroup('')">Todos</a>
+		
+			<div id="filtros">
+				<p>
+					<input id="autocomplete" type="text" placeholder="Escribe el nombre de un diputado">
+				</p>
+				<a href="javascript:void(0)" onclick="loadImagesByGroup('PP')">PP</a>
+				<a href="javascript:void(0)" onclick="loadImagesByGroup('PSOE')">PSOE</a>
+				<a href="javascript:void(0)" onclick="loadImagesByGroup('')">Todos</a>
+			</div>
 
 			<div id="slides_cointainer">
 
