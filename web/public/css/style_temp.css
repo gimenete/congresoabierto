@@ -1,0 +1,4 @@
+.punch1 {
+	position: absolute; z-index: 90000;
+	width: 120px; height: 100px; top:0px; left: 0px;
+}
