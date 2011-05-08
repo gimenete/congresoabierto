@@ -64,11 +64,25 @@ $(document).ready(function(){
 		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
 		return false
 	}
+	
+	$.address.change(function(event) {
+		var id1 = event.value.split('/')[2]
+		if(fighters[0] !== undefined && fighters[0].id !== id1) {
+			fighter = 0
+			chooseFighter(id1)
+		}
+		
+		var id2 = event.value.split('/')[3]
+		if(fighters[1] !== undefined && fighters[1].id !== id2) {
+			fighter = 1
+			chooseFighter(id2)
+		}
+	});
 
 	function fight() {
 		if(canFight()) {
 			flash()
-//			$.getJSON('/fight/1/4', function(data) {
+			$.address.path('/fight/'+fighters[0].id+'/'+fighters[1].id)
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
 				
