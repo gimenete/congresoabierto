@@ -2,23 +2,23 @@ var fight_punchStart;
 var fight_punchEnd;
 var fight_style_sufix;
 
-function punchAttackLeftToRight(){
+function punchAttackLeftToRight(callback){
 	fight_punchStart = "150px";
 	fight_punchEnd = "600px";
 	fight_style_sufix = "_right";
-	punchAttact();
+	punchAttact(callback);
 }
 
-function punchAttackRightToLeft(){
+function punchAttackRightToLeft(callback){
 	fight_punchStart = "600px";
 	fight_punchEnd = "150px";
 	fight_style_sufix = "_left";
-	punchAttact();
+	punchAttact(callback);
 }
 
-function punchAttact(){
-	
-	var punch = $("<img src='/img/punch.gif' class='punch" + fight_style_sufix + "'/>");
+//3 punches
+function punchAttact(callback){
+	var punch = $("<img src='/img/punch.gif' class='punch punch" + fight_style_sufix + "'/>");
 	
 	punch.appendTo('#fighter0');
 	punch.css("left",fight_punchStart).css("top","200px");
@@ -29,8 +29,9 @@ function punchAttact(){
 		 
 		 .animate({left: fight_punchStart, top: "240px"}, 1)
 		 .animate({left: fight_punchEnd, top: "340px"}, 400)
-		 .animate({opacity: 0.0},1, multiplePunchAttact);
+		 .animate({opacity: 0.0},1, callback);
 }
+
 
 var multiplePunchAttacks = 0;
 function multiplePunchAttact(){
@@ -49,6 +50,8 @@ function rumbleLosser(){
 	var imgloser=loser.find('img')
 	imglosser.css("opacity", "0.5")
 	imgloser.jrumble({ rumbleEvent: 'constant'});
+	
+	$(".punch").remove();
 }
 
 function empty(){}
@@ -66,7 +69,7 @@ function punch3(callback){
 }
 
 function punch(start_top, end_top, callback){
-	var punch = $("<img src='/img/punch.gif' class='punch" + fight_style_sufix + "'/>");
+	var punch = $("<img src='/img/punch.gif' class='punch punch" + fight_style_sufix + "'/>");
 	punch.appendTo('#fighter0');
 	punch.css("left",fight_punchStart).css("top",start_top).css("opacity","0.0");
 	punch.animate({opacity: 1}, {queue: false, duration: 200})

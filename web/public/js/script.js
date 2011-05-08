@@ -57,6 +57,8 @@ $(document).ready(function(){
 		var info_container = $('#info'+i)
 		info_container.hide('slow')
   }	
+  
+  $('.winner').hide()
 
 });
 
@@ -67,35 +69,34 @@ $(document).ready(function(){
 	var types = ['hulk', 'golum', 'rambo', 'yoda', 'boxer', 'goalkeeper', 'zeus', 'soldier', 'superman', 'ironman', 'darthvader', 'terminator','simpson','pirateofthecaribbean','ilikemoney']
 
 
-	function flash() {
-		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200)
-		return false
+	function flash(callback) {
+		$('#fullscreen').height($(document).height()).width($(document).width()).fadeIn(100).fadeOut(200, callback)
 	}
 
     
 	function animatefight(){
 			// var offset = $('#fighter0 img').offset();
-			$('#fighter0 img')
-				.animate({left:'100px', top:'-200px'}, 250)
-				.animate({left:'200px', top:'0px'}, 250)
-				.animate({left:'0px'}, 250)
-				.animate({left:'200px'}, 250)
-				.animate({left:'100px', top: '-50px'}, 250)
-				.animate({left:'0px', top: '0px'}, 250)
-				.animate({left:'100px', top:'-200px'}, 250)
-				.animate({left:'200px', top:'0px'}, 250)
-				.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
+		$('#fighter0 img')
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px'}, 250)
+			.animate({left:'200px'}, 250)
+			.animate({left:'100px', top: '-50px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250)
+			.animate({left:'100px', top:'-200px'}, 250)
+			.animate({left:'200px', top:'0px'}, 250)
+			.animate({left:'0px', top: '0px'}, 250,fightfetchdata)
 
-			$('#fighter1 img')
-				.animate({left:'-100px', top:'-200px'}, 250)
-				.animate({left:'-200px', top:'0px'}, 250)
-				.animate({left:'0px', top:'-50px'}, 125)
-				.animate({left:'0px', top:'0px'}, 125)
-				.animate({top:'-100px'}, 250)
-				.animate({top:'0px', left:'0px'}, 250)
-				.animate({left:'-100px', top:'-200px'}, 250)
-				.animate({left:'-200px', top:'0px'}, 250)
-				.animate({top:'0px', left:'0px'}, 250)
+		$('#fighter1 img')
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({left:'0px', top:'-50px'}, 125)
+			.animate({left:'0px', top:'0px'}, 125)
+			.animate({top:'-100px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
+			.animate({left:'-100px', top:'-200px'}, 250)
+			.animate({left:'-200px', top:'0px'}, 250)
+			.animate({top:'0px', left:'0px'}, 250)
 	}    
 
 
@@ -125,6 +126,7 @@ $(document).ready(function(){
 		}
 	})
 
+	//get data, print data, show winner
 	function fightfetchdata(){
 			$.getJSON('/fight/'+fighters[0].id+'/'+fighters[1].id, function(data) {
 				console.log(data)
@@ -132,57 +134,55 @@ $(document).ready(function(){
 					var info_container = $('#info'+i)
 					console.log(i)
 					info_container.empty()
-					info_container.append('<div>Puntuación:<span>' + data[i].puntuacion + '</span></div>')
-					info_container.append('<div>Intervenciones:<span>' + data[i].intervenciones + '</span></div>')
-					info_container.append('<div>Palabras:<span>' + data[i].palabras + '</span></div>')					
+					info_container.append('<h2>Totales</h2>')
+					info_container.append('<div><strong>Puntuación:</strong><span>' + data[i].puntuacion + ' pts</span></div>')
+					info_container.append('<div><strong>Intervenciones:</strong><span>' + data[i].intervenciones + ' pts</span></div>')
+					info_container.append('<div><strong>Palabras:</strong><span>' + data[i].palabras + ' pts</span></div>')					
+					
+					info_container.append('<h2>Temas tratados</h2>')
 					
 					for (key in data[i]) {
 						if (key.indexOf('p_', 0) === 0) {
-							info_container.append('<div>'+key.substring(2, 3).toUpperCase()+key.substring(3)+': <span>'+data[i][key]+'</span></div>')
+							info_container.append('<div><strong>'+key.substring(2, 3).toUpperCase()+key.substring(3)+':</strong> <span>'+data[i][key]+' pts</span></div>')
 						}
-					}												
+					}
+					
+					info_container.append('<br><br><p><em>Calculados según los resultados de la encuesta del CIS de abril de 2011</em></p>')
+				}
+				
+				var showresult = function(){
+					//winner.css('background-color','yellow')
+					winner.find('.winner').show('slow')
+					showpanels()
 				}
 					
-				if (data[0].puntuacion > data[1].puntuacion)
+				//who is the winner	
+				if (parseInt(data[0].puntuacion,10) > parseInt(data[1].puntuacion,10))
 				{
-					punchAttackLeftToRight()
+					punchAttackLeftToRight(showresult)
 					winner=$('#fighter0')
 					loser=$('#fighter1')
 				}
 				else{
-					punchAttackRightToLeft()				
+					punchAttackRightToLeft(showresult)				
 					winner=$('#fighter1')
 					loser=$('#fighter0')					
-				}					
-				
-				setTimeout(function(){
-					winner.css('background-color','yellow')
-					winner.append('<img class=winner src=/img/winner.png>')	
-					for (i=0;i<2;i++){	
-						var info_container = $('#info'+i)
-						info_container.show('slow')
-					}										
-				},3000);
+				}
 
 			});
 	}
+	
+
 
 	function fight() {
 		cleanInterface()
-		
-		for (i=0;i<2;i++){	
-				var info_container = $('#info'+i)
-				info_container.hide()
-		}
-		
+		$.address.path('/fight/'+fighters[0].id+'/'+fighters[1].id)
+				
 		if(canFight()) {
-			flash()
-			setTimeout(function(){
-				animatefight()				
-			},2000);	
+			flash(animatefight)
 		}
 		else{
-			alert('Imposible comenzar la lucha!')
+			alert('Selecciona los dos contrincantes pulsando en sus fotos')
 		}
 			
 		//score
@@ -307,7 +307,7 @@ $(document).ready(function(){
 	function chooseFighter(i) {
 		fighters[fighter] = diputados[i]
 		// $('#fighter'+fighter+' .avatar img').attr('src', diputados[i].foto)
-		$('#fighter'+fighter+' .avatar img').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
+		$('#fighter'+fighter+' .avatar img.avatar').attr('src', 'http://www.congresoabierto.com/avatars/'+types[type]+'/'+diputados[i].id+'.jpg')
 		$('#fighter'+fighter+' h2').text(diputados[i].nombre)
  		$('#fighter'+fighter+' h3').text(diputados[i].grupobreve)
 
@@ -331,6 +331,22 @@ $(document).ready(function(){
 		return false
 	}
 	
+	
+	//helpers 
+	function showpanels(){
+		for (i=0;i<2;i++){	
+			var info_container = $('#info'+i)
+			info_container.show('slow')
+		}												
+	}
+	
+	function hidepanels(){
+		for (i=0;i<2;i++){	
+			var info_container = $('#info'+i)
+			info_container.hide('slow')
+		}												
+	}
+	
 	function cleanInterface() {
 		$('#select_fighter').slideUp(function() {
 			loadImages()
@@ -342,6 +358,9 @@ $(document).ready(function(){
  		$('#info0').empty()
  		$('#info1').hide()
  		$('#info1').empty()
+  		$('.winner').hide()
+
+		hidepanels()
 	}
 
 
