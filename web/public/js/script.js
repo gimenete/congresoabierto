@@ -83,6 +83,8 @@ $(document).ready(function(){
 			.animate({top:'-200px'}, 500)
 			.animate({top:'0px'}, 500);
 		
+		talk('menuda somanta palos le ha dado diputada 1 a diputada 2...')
+				
 		return false;
 	}
 		
