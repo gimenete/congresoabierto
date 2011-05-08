@@ -233,7 +233,9 @@ a.fightbutton {
 		max-height: 300px;
 	}
 
-
+	img.avatar {
+		cursor: pointer
+	}
 
 
 
