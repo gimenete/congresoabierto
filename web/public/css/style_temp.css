@@ -1,4 +1,17 @@
-.punch1 {
-	position: absolute; z-index: 90000;
-	width: 120px; height: 100px; top:0px; left: 0px;
+.punch1, .punch2, .punch3 {
+	position: absolute; z-index: 2000;
+	width: 160px; height: 120px; top:0px; left: 0px;
 }
+.punch1 {
+	-moz-transform:rotate(20deg);
+	-webkit-transform:rotate(20deg);
+}
+.punch2 {
+	-moz-transform:rotate(30deg);
+	-webkit-transform:rotate(30deg);
+}
+.punch3 {
+	-moz-transform:rotate(40deg);
+	-webkit-transform:rotate(40deg);
+}
+

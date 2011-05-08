@@ -50,7 +50,11 @@
 		</div><!-- Close slideshow -->
 		</div> <!-- Close select_fighter  -->
 
-<a href="#" onclick="punch1();return false;">golpe1</a>
+<a href="#" onclick="punch1();return false;">golpe1</a> |
+<a href="#" onclick="punch2();return false;">golpe2</a> |
+<a href="#" onclick="punch3();return false;">golpe3</a> |
+<a href="#" onclick="multi_punch1();return false;">golpe multiple</a> |
+<a href="#" onclick="$('#fighter1 .avatar').jrumble({ rumbleEvent: 'constant'});">parar</a>
 
 		<div id="main" role="main" >
 		<div class="fighter left dummyborder default_margin" id="fighter0">
@@ -84,6 +88,7 @@
 	<script src="js/plugins.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/script_ruben.js"></script>
+	<script src="js/jrumble.1.1.min.js"></script>
 	<!--[if lt IE 7 ]>
 	<script src="js/libs/dd_belatedpng.js"></script>
 	<script> DD_belatedPNG.fix('img, .png_bg');</script>
