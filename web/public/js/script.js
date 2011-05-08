@@ -1,5 +1,6 @@
 $(document).ready(function(){
  loadImages()
+ loadParties()
 
   var currentPosition = 0;
   var slideWidth = 130;
@@ -140,24 +141,8 @@ $(document).ready(function(){
 				
 		return false;
 	}
-		
-	function applyStyleGroup(group){
-		var slides_cointainer = $('#slides_cointainer')
-		if (group=='PP'){
-			slides_cointainer.css('background-color','blue')			
-		}
-		else if (group=='PSOE'){
-			slides_cointainer.css('background-color', 'red')			
-		}
-		else{
-			slides_cointainer.css('background-color', 'white')			
-		}
-	}
 
-	function loadImagesByGroup(grupo){
-		
-		applyStyleGroup(grupo)
-		
+	function loadImagesByGroup(grupo) {
 		var slides_cointainer = $('#slides_cointainer')
 		slides_cointainer.empty();
 		for (var i=0; i < diputados.length; i++) {
@@ -179,7 +164,6 @@ $(document).ready(function(){
 	
 	function clean(s) {
 		var r=s.toLowerCase();
-		r = r.replace(new RegExp(/\s/g),"");
 		r = r.replace(new RegExp(/[àáâãäå]/g),"a");
 		r = r.replace(new RegExp(/æ/g),"ae");
 		r = r.replace(new RegExp(/ç/g),"c");
@@ -199,18 +183,18 @@ $(document).ready(function(){
 		slides_cointainer.empty();
 		var text = clean($('#autocomplete').val())
 		for (var i=0; i < diputados.length; i++) {
-			if (clean(diputados[i].nombre).indexOf(text, 0) > 0){
-					var img = $('<img src="'+diputados[i].foto+'" />')
-					var div = $('<div class="mini_fighter left"></div>')
-					div.append(img)
-					slides_cointainer.append(div)
+			if (clean(diputados[i].nombre).indexOf(text) >= 0){
+				var img = $('<img src="'+diputados[i].foto+'" />')
+				var div = $('<div class="mini_fighter left"></div>')
+				div.append(img)
+				slides_cointainer.append(div)
 
-					var func = function(k) {
-						return function(){
-							chooseFighter(k)
-						}
-					}(i)
-					div.click(func)
+				var func = function(k) {
+					return function(){
+						chooseFighter(k)
+					}
+				}(i)
+				div.click(func)
 			}
 		}
 		
@@ -221,6 +205,22 @@ $(document).ready(function(){
 
 	function talk(str){
 		$('<iframe />').attr('width','0').attr('src', 'http://vozme.com/text2voice.php?lang=es&interface=full&gn=ml&text=' + str).appendTo('body'); 
+	}
+	
+	function loadParties() {
+		var parties = {}
+		for (var i=0; i < diputados.length; i++) {
+			parties[diputados[i].grupobreve] = ''
+		}
+		var combo = $('#parties select')
+		combo.append('<option value="">Todos</option>')
+		for (key in parties) {
+			combo.append('<option value="'+key+'">'+key+'</option>')
+		}
+		combo.change(function() {
+			$('#autocomplete').val('')
+			loadImagesByGroup($(this).val())
+		})
 	}
 	
 	function loadImages() {
